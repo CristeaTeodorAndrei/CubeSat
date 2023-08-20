@@ -1,4 +1,4 @@
-import OS
+from OptiPiWizard import *
 
 if __name__ == "__main__":
     disable_wifi()
