@@ -40,8 +40,8 @@ The following optimizations have been made to improve overall system performance
 
 ### TS Phase
 
-Running the script <b>TS.py</b> the OBC should begin testing sequence and a custom TM is sent to the GCM via the RF Module that indicates the sensors has been detected.
-If the RF Module is not working or is not responding the RED LED will blink continuously.
+Running the script <b>TS.py</b> the OBC should begin testing sequence and a custom TM is sent to the GCM via the RF Module that indicates the sensors has been detected. <br>
+If the RF Module is not working or is not responding the RED LED will blink continuously.<br>
 If the RF Module is working a the GREEN LED will blink continuously and a TM will be send with the following format:
 - 0x00_0x00_0x00_0x00
 
