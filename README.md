@@ -23,10 +23,11 @@ The future goal of this project is to reach LEO.
 ### Software specs
 The OBSW was developed in Python, and the operating system on which the software runs is Raspberian, to which optimizations have been applied. <br>
 The following optimizations have been made to improve overall system performance:
-    - Deactivating Wi-Fi Module,
-    - Deactivating Bluetooth Module,
-    - Deactivating Update Module,
-    - Deactivating UI
+
+- Deactivating Wi-Fi Module,
+- Deactivating Bluetooth Module,
+- Deactivating Update Module,
+- Deactivating UI
 
 
 
