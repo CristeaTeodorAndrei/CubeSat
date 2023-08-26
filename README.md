@@ -40,13 +40,36 @@ The following optimizations have been made to improve overall system performance
 
 ### TS Phase
 
-Running the script TS.py the OBC should begin testing sequence where the LED (idk) will pulse confirming that it has detected every single sensor, camera and RF Module. <br>
-After that, a TM is sent to the user via the RF Module with the standard format and a message indicating that the user can proceed to the main code.
+Running the script <b>TS.py</b> the OBC should begin testing sequence and a custom TM is sent to the GCM via the RF Module that indicates the sensors has been detected.
+If the RF Module is not working or is not responding the RED LED will blink continuously.
+If the RF Module is working a the GREEN LED will blink continuously and a TM will be send with the following format:
+- 0x00_0x00_0x00_0x00
+
+TM's params should have the following values:
+
+1. (First) 0x00 - MPU6050 has been detected.
+
+- 0x01 - MPU6050 has not been detected.
+
+2. (Second) 0x00 - BMP280 has been detected.
+
+- 0x01 - BMP280 has not been detected.
+
+3. (Third) 0x00 - Camera Module has been detected.
+
+- 0x01 - Camera Module has not been detected.
+
+4. (Fourth) 0x00 - Power supply voltage is nominal.
+
+- 0x05 - The OBC is undervoltage and the power supply should be verified.
+
 ### TMTC Format
 
 A nominal TM should follow the following pattern:
 
 - TimeStamp_Voltage_Temp_Load_AccX_AccY_AccZ_GyroX_GyroY_GyroZ_Att_Press
+
+TM's params should have the following values:
 
 1. <b>TimeStamp</b> [seconds] should be a float (Eg. 1.00) and represent the relative time. 
 2. <b>Voltage</b> should be in hex format (Eg. 0x00).
