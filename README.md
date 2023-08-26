@@ -85,7 +85,10 @@ TM's params should have the following values:
 Keep in mind that TMTC will only be available for a period of time until the CubeSat moves out of range of the GCM.
 
 ### SDCard
-Because the RF module allows a relatively short data transmission distance, the whole flight will be stored on the RPI's internal SD Card.
+
+Because the RF module allows a relatively short data transmission distance, the whole flight video and params will be stored on the RPI's internal SD Card.
+
+TBC
 ## Acronyms
 
 - LEO - Low Earth Orbit
