@@ -19,10 +19,11 @@ The future goal of this project is to reach LEO.
 ### Hardware specs
 
     1. Raspberry PI 4 Model B
-    2. MPU6050 accelerometer and gyroscope module
+    2. MPU6050 Accelerometer and Gyroscope Module
     3. BMP280 Pressure Sensor
     4. Raspberry Pi Camera Module 2
     5. NRF20L01 Wireless Module
+    6. Battery System 
 
 ### Software specs
 
@@ -35,13 +36,15 @@ The following optimizations have been made to improve overall system performance
 - Deactivating UI
 
 
-### User manual
+## User manual
 
-### Acronyms
+### TMTC 
+
+## Acronyms
 
 - LEO - Low Earth Orbit
 - OBSW - On Board Software
 - UI - User Interface
 
-### About me
+## About me
 
