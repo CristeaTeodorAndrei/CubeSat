@@ -38,11 +38,11 @@ The following optimizations have been made to improve overall system performance
 
 ## User manual
 
-### TS Phase
+### Testing Phase
 
-Running the script <b>TS.py</b> the OBC should begin testing sequence and a custom TM is sent to the GCM via the RF Module that indicates the sensors has been detected. <br>
-If the RF Module is not working or is not responding the RED LED will blink continuously.<br>
-If the RF Module is working the GREEN LED will blink continuously and a TM will be send with the following format:
+Running the script <b>Test.py</b> the OBC should begin testing sequence and a custom TM is sent to the GCM via the RFM that indicates the sensors has been detected. <br>
+If the RFM is not working or is not responding the RED LED will blink continuously.<br>
+If the RFM is working the GREEN LED will blink continuously and a TM will be send with the following format:
 
 - [0x00, 0x00, 0x00, 0x00]
 
@@ -83,12 +83,16 @@ TM's params should have the following values:
 5. <b>Acceleration{X,Y,Z}</b>[m/s^2] float (Eg. 10.32) and represent the acceleration on each axis.
 6. <b>Gyro{X,Y,Z}</b>[deg/s] float (Eg. 11.01) and represent the rotation on each axis.
 7. <b>Altitude</b>[meters] integer (Eg. 1100) and represent the altitude of the CubeSat.
-8. <b>Pressure</b>[hPa] float (Eg. 1013.89) and represent the pressure applied to the CubeSat.
+8. <b>Pressure</b>[hPa] float (Eg. 1013.89) and represent the pressure applied to the CubeSat. <br>
+
 Keep in mind that TMTC will only be available for a period of time until the CubeSat moves out of range of the GCM.
 
 ### SDCard
 
-Because the RF module allows a relatively short data transmission distance, the whole flight video and params will be stored on the RPI's internal SD Card.
+The entire CubeSat video flight will be stored on the video card. <br>
+Also because the RFM allows communication over a relatively short distance with the GCM the flight parameters will be stored on the OBC's internal SD Card. <br>
+The OBSW will detect the loss of GCM connection, and then the data will be passed in .txt(???) format. <br>
+The OBSW will also notify the GCM that it is approaching maximum range and could lose contact. <br>
 
 TBC
 ## Acronyms
@@ -96,10 +100,10 @@ TBC
 - LEO - Low Earth Orbit
 - OBSW - OnBoard Software
 - UI - User Interface
-- TS - Test Sequence
 - OBC - OnBoard Computer
 - TMTC - Telemetry/Telecommand
 - GCM - Ground Communication Module
+- RFM - RF Module 
 
 ## About me
 
