@@ -40,7 +40,7 @@ The following optimizations have been made to improve overall system performance
 
 ### Testing Phase
 
-Running the script <b>Test.py</b> the OBC should begin testing sequence and a custom TM is sent to the GCM via the RFM that indicates the sensors has been detected. <br>
+Running the script <b>Test.py</b>, the OBC should begin testing sequence and a custom TM is sent to the GCM via the RFM that indicates the sensors has been detected. <br>
 If the RFM is not working or is not responding the RED LED will blink continuously.<br>
 If the RFM is working the GREEN LED will blink continuously and a TM will be send with the following format:
 
@@ -85,6 +85,8 @@ TM's params should have the following values:
 7. <b>Altitude</b>[meters] integer (Eg. 1100) and represent the altitude of the CubeSat.
 8. <b>Pressure</b>[hPa] float (Eg. 1013.89) and represent the pressure applied to the CubeSat. <br>
 
+<br>
+One TM is sent every 5 seconds. <br>
 Keep in mind that TMTC will only be available for a period of time until the CubeSat moves out of range of the GCM.
 
 ### SDCard
