@@ -50,7 +50,6 @@ The following steps should be performed before the core software will run:
 
 - Run OS Optimization code (OptiPiWizzard.py)[^1]
 - Proceed with the Testing Phase[^2]
-  - - Now the GCM should receive first TM and inform that the connection was established.
 - Run OnBoard Software code (OBSW.py)
 
 
