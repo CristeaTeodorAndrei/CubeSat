@@ -38,6 +38,21 @@ The following optimizations have been made to improve overall system performance
 
 ## User manual
 
+### Initialization
+The following steps should be performed before the core software will run:
+
+1. Prepare the GCM by plug-in the power source and run the receiver code
+
+- A successful connection message should be displayed in the terminal
+- A warning message should appear to notify the failure to connect with the OBC.
+
+2. Plug in OBC and follow the steps:
+
+- Run OS Optimization code (OptiPiWizzard.py)
+- Proceed with the Testing Phase
+- - Now the GCM should receive first TM and inform that the connection was established.
+- Run OnBoard Software code (OBSW.py)
+ 
 ### Testing Phase
 
 Running the script <b>Test.py</b>, the OBC should begin testing sequence and a custom TM is sent to the GCM via the RFM that indicates the sensors has been detected. <br>
@@ -93,10 +108,8 @@ Keep in mind that TMTC will only be available for a period of time until the Cub
 
 The entire CubeSat video flight will be stored on the video card. <br>
 Also because the RFM allows communication over a relatively short distance with the GCM the flight parameters will be stored on the OBC's internal SD Card. <br>
-The OBSW will detect the loss of GCM connection, and then the data will be passed in .txt(???) format. <br>
-The OBSW will also notify the GCM that it is approaching maximum range and could lose contact. <br>
+The OBSW will notify the approaching maximum range and detect the loss of GCM connection, and the data will be passed in .txt(???) format. <br>
 
-TBC
 ## Acronyms
 
 - LEO - Low Earth Orbit
