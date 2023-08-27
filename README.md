@@ -64,7 +64,7 @@ In order to reduce energy usage and ensure efficient performance of the whole sy
 - Deactivating UI
 
 By running the script <b> Optimization.py</b> all of those optimizations will be applied and after that the OBC will reboot. <br>
-After restarting the system, the green LED will be permanently ON to indicate successful optimization and to ensure that OBC can proceed to the next phase.
+After restarting the system, the GREEN LED will be permanently ON to indicate successful optimization and to ensure that OBC can proceed to the next phase.
 
 ### Testing Phase
 
