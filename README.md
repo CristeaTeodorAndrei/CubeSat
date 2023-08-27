@@ -54,7 +54,7 @@ The following steps should be performed before the core software will run:
 - Start Testing Phase.[^2]
 - Run OnBoard Software code (OBSW.py).
 
-## Optimization Phase
+### Optimization Phase
 
 In order to reduce energy usage and ensure efficient performance of the whole system, a number of optimizations have been implemented:
 
