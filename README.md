@@ -48,11 +48,13 @@ The following steps should be performed before the core software will run:
 
 2. Plug in OBC and follow the steps:
 
-- Run OS Optimization code (OptiPiWizzard.py)
-- Proceed with the Testing Phase
-- - Now the GCM should receive first TM and inform that the connection was established.
+- Run OS Optimization code (OptiPiWizzard.py)[^1]
+- Proceed with the Testing Phase[^2]
+  - - Now the GCM should receive first TM and inform that the connection was established.
 - Run OnBoard Software code (OBSW.py)
- 
+
+[^1]: Go through the OS Optimization phase
+[^2]: Go through the Testing phase
 ### Testing Phase
 
 Running the script <b>Test.py</b>, the OBC should begin testing sequence and a custom TM is sent to the GCM via the RFM that indicates the sensors has been detected. <br>
