@@ -41,23 +41,23 @@ The following optimizations have been made to improve overall system performance
 ### Initialization
 The following steps should be performed before the core software will run:
 
-1. Prepare the GCM by plug-in the power source and run the receiver code
+1. Prepare the GCM by plug in the power source and run the receiver code
 
-- A successful connection message should be displayed in the terminal
+- A successful connection message should be displayed in the terminal.
 - A warning message should appear to notify the failure to connect with the OBC.
 
 2. Plug in OBC and follow the steps:
 
-- Run OS Optimization code (OptiPiWizzard.py)[^1]
-- Proceed with the Testing Phase[^2]
-- Run OnBoard Software code (OBSW.py)
+- Start OS Optimization code (OptiPiWizzard.py).[^1]
+- Start Testing Phase.[^2].
+- Run OnBoard Software code (OBSW.py).
 
 
 ### Testing Phase
 
 Running the script <b>Test.py</b>, the OBC should begin testing sequence and a custom TM is sent to the GCM via the RFM that indicates the sensors has been detected. <br>
 If the RFM is not working or is not responding the RED LED will blink continuously.<br>
-If the RFM is working the GREEN LED will blink continuously and a TM will be send with the following format:
+If the RFM is working the GREEN LED will blink continuously and a TM will be send to the GCM with the following format:
 
 - [0x00, 0x00, 0x00, 0x00]
 
