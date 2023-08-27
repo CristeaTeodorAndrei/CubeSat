@@ -34,11 +34,12 @@ The following optimizations have been made to improve overall system performance
 - Deactivating Bluetooth Module
 - Deactivating Update Module
 - Deactivating UI
-
+<br>
 
 ## Guideline
 
 ### Initialization
+
 The following steps should be performed before the core software will run:
 
 1. Prepare the GCM by plug in the power source and run the receiver code
@@ -46,12 +47,11 @@ The following steps should be performed before the core software will run:
 - A successful connection message should be displayed in the terminal.
 - A warning message should appear to notify the failure to connect with the OBC.
 
-2. Plug in OBC and follow the steps:
+2. Plug in the OBC and follow the steps:
 
 - Start OS Optimization code (OptiPiWizzard.py).[^1]
 - Start Testing Phase.[^2]
 - Run OnBoard Software code (OBSW.py).
-
 
 ### Testing Phase
 
@@ -80,7 +80,7 @@ TM's params should have the following values:
 - 0x05 - The OBC is undervoltage and the power supply should be verified.
 
 <br>
-One TM is sent every 5 seconds. <br>
+If the TM's values are not nominal OBSW will repeat the test every 5 seconds.
 
 ### TMTC Format
 
@@ -90,7 +90,7 @@ A nominal TM should have the following format:
 
 TM's params should have the following values:
 
-1. <b>TimeStamp</b> [seconds] float (Eg. 1.00) and represent the relative time. 
+1. <b>TimeStamp</b> [seconds] float (Eg. 1.00) and represent the relative time.
 2. <b>Voltage</b> hex format (Eg. 0x00).
 
 - 0x00 indicates that the voltage is nominal.
@@ -110,7 +110,7 @@ Keep in mind that TMTC will only be available for a period of time until the Cub
 ### SDCard
 
 The entire CubeSat video flight will be stored on the video card. <br>
-Also because the RFM allows communication over a relatively short distance with the GCM the flight parameters will be stored on the OBC's internal SD Card. <br>
+Because the RFM allows communication over a relatively short distance with the GCM the flight parameters will be stored on the OBC's internal SD Card. <br>
 The OBSW will notify the approaching maximum range and detect the loss of GCM connection, and the data will be passed in .txt(???) format. <br>
 
 ## Acronyms
@@ -121,11 +121,11 @@ The OBSW will notify the approaching maximum range and detect the loss of GCM co
 - OBC - OnBoard Computer
 - TMTC - Telemetry/Telecommand
 - GCM - Ground Communication Module
-- RFM - RF Module 
+- RFM - RF Module
 
 ## About me
 
 ## Footnotes
+
 [^1]: Go through the OS Optimization phase
 [^2]: Go through the Testing phase
-
