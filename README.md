@@ -1,4 +1,4 @@
-# Cubesat
+# CubeSat
 
 ## Introduction
 
@@ -27,7 +27,7 @@ The future goal of this project is to reach LEO.
 
 ### Software specs
 
-The OBSW was developed in Python, and the operating system on which the software runs is Raspberian, to which optimizations have been applied. <br>
+The OBSW was developed in Python, and the operating system on which the software runs is Raspberian. <br>
 The following optimizations have been made to improve overall system performance:
 
 - Deactivating Wi-Fi Module,
@@ -42,8 +42,9 @@ The following optimizations have been made to improve overall system performance
 
 Running the script <b>TS.py</b> the OBC should begin testing sequence and a custom TM is sent to the GCM via the RF Module that indicates the sensors has been detected. <br>
 If the RF Module is not working or is not responding the RED LED will blink continuously.<br>
-If the RF Module is working a the GREEN LED will blink continuously and a TM will be send with the following format:
-- 0x00_0x00_0x00_0x00
+If the RF Module is working the GREEN LED will blink continuously and a TM will be send with the following format:
+
+- >>[0x00, 0x00, 0x00, 0x00]
 
 TM's params should have the following values:
 
@@ -65,7 +66,7 @@ TM's params should have the following values:
 
 ### TMTC Format
 
-A nominal TM should follow the following pattern:
+A nominal TM should have the following format:
 
 - TimeStamp_Voltage_Temp_Load_AccX_AccY_AccZ_GyroX_GyroY_GyroZ_Att_Press
 
