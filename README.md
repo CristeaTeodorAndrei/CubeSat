@@ -123,7 +123,7 @@ The OBSW will notify the approaching maximum range and detect the loss of GCM co
 
 ## About me
 
-### Footnotes
+## Footnotes
 [^1]: Go through the OS Optimization phase
 [^2]: Go through the Testing phase
 
