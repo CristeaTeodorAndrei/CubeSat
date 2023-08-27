@@ -44,7 +44,7 @@ Running the script <b>TS.py</b> the OBC should begin testing sequence and a cust
 If the RF Module is not working or is not responding the RED LED will blink continuously.<br>
 If the RF Module is working the GREEN LED will blink continuously and a TM will be send with the following format:
 
-- >>[0x00, 0x00, 0x00, 0x00]
+- [0x00, 0x00, 0x00, 0x00]
 
 TM's params should have the following values:
 
@@ -68,21 +68,22 @@ TM's params should have the following values:
 
 A nominal TM should have the following format:
 
-- TimeStamp_Voltage_Temp_Load_AccX_AccY_AccZ_GyroX_GyroY_GyroZ_Att_Press
+- [TimeStamp, Voltage, Temperature, Load, AccX, AccY, AccZ, GyroX, GyroY, GyroZ, Altitude, Pressure]
 
 TM's params should have the following values:
 
-1. <b>TimeStamp</b> [seconds] should be a float (Eg. 1.00) and represent the relative time. 
-2. <b>Voltage</b> should be in hex format (Eg. 0x00).
+1. <b>TimeStamp</b> [seconds] float (Eg. 1.00) and represent the relative time. 
+2. <b>Voltage</b> hex format (Eg. 0x00).
 
 - 0x00 indicates that the voltage is nominal.
 - 0x05 indicates that the OBC is undervoltage and the power supply should be checked.
 
-3. <b>Temp</b>[degrees] should be a float (Eg. 57.01) and represent the OBC's temperature.
-4. <b>Load</b> [%] should be an integer (Eg. 5%) and represent the OBC's load.
-5. <b>Acc</b>[m/s^2] should be a float (Eg. 10.32) and represent the acceleration on each axis.
-6. <b>Gyro</b>[deg/s] should be a float (Eg. 11.01) and represent the rotation on each axis.
-
+3. <b>Temperature</b>[degrees] float (Eg. 57.01) and represent the OBC's temperature.
+4. <b>Load</b> [%] integer (Eg. 5%) and represent the OBC's load.
+5. <b>Acceleration{X,Y,Z}</b>[m/s^2] float (Eg. 10.32) and represent the acceleration on each axis.
+6. <b>Gyro{X,Y,Z}</b>[deg/s] float (Eg. 11.01) and represent the rotation on each axis.
+7. <b>Altitude</b>[meters] integer (Eg. 1100) and represent the altitude of the CubeSat.
+8. <b>Pressure</b>[hPa] float (Eg. 1013.89) and represent the pressure applied to the CubeSat.
 Keep in mind that TMTC will only be available for a period of time until the CubeSat moves out of range of the GCM.
 
 ### SDCard
