@@ -27,13 +27,9 @@ The future goal of this project is to reach LEO.
 
 ### Software specs
 
-The OBSW was developed in Python, and the operating system on which the software runs is Raspberian. <br>
-The following optimizations have been made to improve overall system performance:
+OBSW was developed in Python, and the operating system on which the software runs is Raspberian on which some software optimizations have been applied.  <br>
 
-- Deactivating Wi-Fi Module
-- Deactivating Bluetooth Module
-- Deactivating Update Module
-- Deactivating UI
+
 <br>
 
 ## Guideline
@@ -53,9 +49,21 @@ The following steps should be performed before the core software will run:
 - Start Testing Phase.[^2]
 - Run OnBoard Software code (OBSW.py).
 
+## Optimization Phase
+
+In order to reduce energy usage and ensure efficient performance of the whole system, a number of optimisations have been implemented.
+
+- Deactivating Wi-Fi Module
+- Deactivating Bluetooth Module
+- Deactivating Update Module
+- Deactivating UI
+
+By running the script <b> Optimization.py</b> all of those optimizations will be applied and after that the OBC will reboot. <br>
+After restarting the system the green LED will be permanently on to indicate the successful performance of the optimization.
+
 ### Testing Phase
 
-Running the script <b>Test.py</b>, the OBC should begin testing sequence and a custom TM is sent to the GCM via the RFM that indicates the sensors has been detected. <br>
+Running the script <b>Test.py</b>, the OBC begins testing sequence and a custom TM is sent to the GCM via the RFM that indicates the sensors has been detected. <br>
 If the RFM is not working or is not responding the RED LED will blink continuously.<br>
 If the RFM is working the GREEN LED will blink continuously and a TM will be send to the GCM with the following format:
 
@@ -80,7 +88,7 @@ TM's params should have the following values:
 - 0x05 - The OBC is undervoltage and the power supply should be verified.
 
 <br>
-If the TM's values are not nominal OBSW will repeat the test every 5 seconds.
+If the TM's values are not nominal OBSW will repeat the test every 5 seconds. <br>
 
 ### TMTC Format
 
