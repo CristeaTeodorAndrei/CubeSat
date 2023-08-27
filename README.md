@@ -79,6 +79,9 @@ TM's params should have the following values:
 
 - 0x05 - The OBC is undervoltage and the power supply should be verified.
 
+<br>
+One TM is sent every 5 seconds. <br>
+
 ### TMTC Format
 
 A nominal TM should have the following format:
