@@ -19,7 +19,7 @@ The future goal of this project is to reach LEO.
 ### Hardware specs
 
     1. Raspberry PI 4 Model B
-    2. MPU6050 Accelerometer and Gyroscope Module
+    2. MPU6050 Accelerometer and Gyroscope Sensor
     3. BMP280 Pressure Sensor
     4. Raspberry Pi Camera Module 2
     5. NRF20L01 Wireless Module
@@ -30,13 +30,13 @@ The future goal of this project is to reach LEO.
 The OBSW was developed in Python, and the operating system on which the software runs is Raspberian. <br>
 The following optimizations have been made to improve overall system performance:
 
-- Deactivating Wi-Fi Module,
-- Deactivating Bluetooth Module,
-- Deactivating Update Module,
+- Deactivating Wi-Fi Module
+- Deactivating Bluetooth Module
+- Deactivating Update Module
 - Deactivating UI
 
 
-## User manual
+## Guideline
 
 ### Initialization
 The following steps should be performed before the core software will run:
@@ -49,7 +49,7 @@ The following steps should be performed before the core software will run:
 2. Plug in OBC and follow the steps:
 
 - Start OS Optimization code (OptiPiWizzard.py).[^1]
-- Start Testing Phase.[^2].
+- Start Testing Phase.[^2]
 - Run OnBoard Software code (OBSW.py).
 
 
