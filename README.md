@@ -56,7 +56,7 @@ The following steps should be performed before the core software will run:
 
 ## Optimization Phase
 
-In order to reduce energy usage and ensure efficient performance of the whole system, a number of optimisations have been implemented:
+In order to reduce energy usage and ensure efficient performance of the whole system, a number of optimizations have been implemented:
 
 - Deactivating Wi-Fi Module
 - Deactivating Bluetooth Module
