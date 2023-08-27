@@ -53,8 +53,7 @@ The following steps should be performed before the core software will run:
   - - Now the GCM should receive first TM and inform that the connection was established.
 - Run OnBoard Software code (OBSW.py)
 
-[^1]: Go through the OS Optimization phase
-[^2]: Go through the Testing phase
+
 ### Testing Phase
 
 Running the script <b>Test.py</b>, the OBC should begin testing sequence and a custom TM is sent to the GCM via the RFM that indicates the sensors has been detected. <br>
@@ -123,4 +122,8 @@ The OBSW will notify the approaching maximum range and detect the loss of GCM co
 - RFM - RF Module 
 
 ## About me
+
+### Footnotes
+[^1]: Go through the OS Optimization phase
+[^2]: Go through the Testing phase
 
