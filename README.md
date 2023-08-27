@@ -28,9 +28,14 @@ The future goal of this project is to reach LEO.
 ### Software specs
 
 OBSW was developed in Python, and the operating system on which the software runs is Raspberian on which some software optimizations have been applied.  <br>
+The project is structured in 3 phases:
 
+- Optimization phase
+- Testing phase
+- OBSW phase
 
 <br>
+Each of these phases has a well-defined objective and must be fulfilled before the final code runs.
 
 ## Guideline
 
@@ -45,13 +50,13 @@ The following steps should be performed before the core software will run:
 
 2. Plug in the OBC and follow the steps:
 
-- Start OS Optimization code (OptiPiWizzard.py).[^1]
+- Start OS Optimization code (Optimization.py).[^1]
 - Start Testing Phase.[^2]
 - Run OnBoard Software code (OBSW.py).
 
 ## Optimization Phase
 
-In order to reduce energy usage and ensure efficient performance of the whole system, a number of optimisations have been implemented.
+In order to reduce energy usage and ensure efficient performance of the whole system, a number of optimisations have been implemented:
 
 - Deactivating Wi-Fi Module
 - Deactivating Bluetooth Module
@@ -59,7 +64,7 @@ In order to reduce energy usage and ensure efficient performance of the whole sy
 - Deactivating UI
 
 By running the script <b> Optimization.py</b> all of those optimizations will be applied and after that the OBC will reboot. <br>
-After restarting the system the green LED will be permanently on to indicate the successful performance of the optimization.
+After restarting the system, the green LED will be permanently ON to indicate successful optimization and to ensure that OBC proceed to the next phase.
 
 ### Testing Phase
 
