@@ -46,14 +46,14 @@ Each of these phases has a well-defined objective and must be fulfilled before t
 
 Keep in mind that each script that will run will be sent as a command through the GCM. <br>
 
-Power on the GCM and open the receiver Interface.
+Power on the GCM, run the script and open the receiver Interface.
 
 - The Interface should prompt a successful connection message.
 - A warning message should appear to notify the failure to connect with the OBC. <br>
 
 Power on the OBC.
 
-- Both GREEN and RED LEDS should be ON indicating that OBC is active and ready for requests.
+- Both GREEN and RED LEDs should be ON indicating that OBC is active and ready for requests.
 - A succesful connection message should appear on GCM's Interface to ensure that communcations with the OBC is active and can proceed to the optimization phase.
 
 <br>
