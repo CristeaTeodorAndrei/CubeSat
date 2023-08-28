@@ -30,10 +30,11 @@ The future goal of this project is to reach LEO.
 OBSW was developed in Python, and the operating system on which the software runs is Raspberian on which some software optimizations have been applied.  <br>
 The project is structured in 4 phases:
 
+- Activating Remote Control Phase
 - Optimization phase
 - Testing phase
 - OBSW phase
-- Activating Remote Control Phase
+
 
 <br>
 Each of these phases has a well-defined objective and must be fulfilled before the final code runs.
@@ -45,9 +46,9 @@ Each of these phases has a well-defined objective and must be fulfilled before t
 
 Keep in mind that each script that will run will be sent as a command through the GCM. <br>
 
-Prepare the GCM by plug in the power source and open the receiver Interface.
+Power on the GCM and open the receiver Interface.
 
-- A successful connection message should be displayed in the Interface.
+- The Interface should prompt a successful connection message.
 - A warning message should appear to notify the failure to connect with the OBC. <br>
 
 Power on the OBC.
@@ -68,7 +69,7 @@ In order to reduce energy usage and ensure efficient performance of the whole sy
 - Deactivating UI
 
 By requesting the OBC to run the script <b> Optimization.py</b> via GCM all of those optimizations will be applied and after that the OBC will reboot. <br>
-After restarting the system, the GREEN LED will turn ON and RED LED OFF to indicate successful optimization and a confirmation message should appear in GCM's Interface. <br>
+After restarting the system, the GREEN LED will turn ON and RED LED OFF to indicate successful optimization and a confirmation message should appear. in GCM's Interface. <br>
 <br>
 OBC can proceed to the testing phase.
 
@@ -104,7 +105,12 @@ OBC can proceed to the running phase or main code.
 
 ### Running phase
 
-IDK IDK
+In the phase of running the main code all CubeSat components should work according to the parameters.
+<br><br>
+By requesting the OBC to run the main code <b>OBSW.py</b> nominal TMs should appear in GCM's Interface. <br>
+As discussed in the SDCard chapter before the CubeSat leaves the range of the GCM the OBSW will send a warning message that it will soon disconnect and the data will be written locally. 
+<br><br>
+That's the final state for the CubeSat before the flight. 
 
 ### TMTC Format
 
@@ -136,7 +142,6 @@ Keep in mind that TMTC will only be available for a period of time until the Cub
 The entire CubeSat video flight will be stored on the video card. <br>
 Because the RFM allows communication over a relatively short distance with the GCM the flight parameters will be stored on the OBC's internal SD Card. <br>
 The OBSW will notify the approaching maximum range and detect the loss of GCM connection, and the data will be passed in .txt(???) format. <br>
-
 
 
 ## Acronyms
