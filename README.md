@@ -70,10 +70,6 @@ By requesting the OBC to run the script <b> Optimization.py</b> via GCM all of t
 After restarting the system, the GREEN LED will turn ON and RED LED OFF to indicate successful optimization and a confirmation message should appear in GCM's Interface. <br><br>
 OBC can proceed to the testing phase.
 
-### Running phase
-
-IDK IDK
-
 ### Testing Phase
 
 By requesting the OBC to run the script <b>Test.py</b>, the OBC begins testing sequence and a custom TM is sent back to the GCM that indicates the sensors has been detected. <br>
@@ -102,7 +98,11 @@ TM's params should have the following values:
 
 <br>
 If the TM's values are not nominal OBSW will repeat the test every 5 seconds. <br>
+OBC can proceed to the running phase or main code.
 
+### Running phase
+
+IDK IDK
 
 ### TMTC Format
 
