@@ -44,15 +44,15 @@ Each of these phases has a well-defined objective and must be fulfilled before t
 
 Keep in mind that each script that will run will be sent as a command through the GCM. <br>
 
-Prepare the GCM by plug in the power source and open the receiver interface.
+Prepare the GCM by plug in the power source and open the receiver Interface.
 
-- A successful connection message should be displayed in the interface.
+- A successful connection message should be displayed in the Interface.
 - A warning message should appear to notify the failure to connect with the OBC. <br>
 
 Power on the OBC.
 
 - Both GREEN and RED LEDS should be ON indicating that OBC is alive.
-- A succesful connection message should appear on GCM's interface to ensure that OBC is connected and can proceed to the optimization phase.
+- A succesful connection message should appear on GCM's Interface to ensure that OBC is connected and can proceed to the optimization phase.
 
 <br>
 GCM will try to connect with the OBC every 5 seconds.
@@ -67,7 +67,8 @@ In order to reduce energy usage and ensure efficient performance of the whole sy
 - Deactivating UI
 
 By requesting the OBC to run the script <b> Optimization.py</b> via GCM all of those optimizations will be applied and after that the OBC will reboot. <br>
-After restarting the system, the GREEN LED will turn ON and RED LED OFF to indicate successful optimization and to ensure that OBC can proceed to the testing phase.
+After restarting the system, the GREEN LED will turn ON and RED LED OFF to indicate successful optimization and a confirmation message should appear in GCM's Interface. <br>
+OBC can proceed to the testing phase.
 
 ### Testing Phase
 
