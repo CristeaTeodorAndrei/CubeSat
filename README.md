@@ -56,6 +56,11 @@ The following steps should be performed before the core software will run:
 - Start Testing Phase.[^2]
 - Run OnBoard Software code (OBSW.py).
 
+
+### Remote Control Phase
+
+Keep in mind that each script that will run will be sent as a command through the GCM.
+
 ### Optimization Phase
 
 In order to reduce energy usage and ensure efficient performance of the whole system, a number of optimizations have been implemented:
@@ -129,9 +134,7 @@ Because the RFM allows communication over a relatively short distance with the G
 The OBSW will notify the approaching maximum range and detect the loss of GCM connection, and the data will be passed in .txt(???) format. <br>
 
 
-### Remote control
 
-Keep in mind that each script that will run will be sent as a command through the GCM.
 ## Acronyms
 
 - LEO - Low Earth Orbit
