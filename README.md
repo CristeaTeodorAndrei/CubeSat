@@ -41,9 +41,11 @@ Each of these phases has a well-defined objective and must be fulfilled before t
 
 ### Initialization
 
+Before all the steps should be read Remote Control phase. <br>
+
 The following steps should be performed before the core software will run:
 
-1. Prepare the GCM by plug in the power source and run the receiver code
+1. Prepare the GCM by plug in the power source and open the receiver interface
 
 - A successful connection message should be displayed in the terminal.
 - A warning message should appear to notify the failure to connect with the OBC.
@@ -126,6 +128,10 @@ The entire CubeSat video flight will be stored on the video card. <br>
 Because the RFM allows communication over a relatively short distance with the GCM the flight parameters will be stored on the OBC's internal SD Card. <br>
 The OBSW will notify the approaching maximum range and detect the loss of GCM connection, and the data will be passed in .txt(???) format. <br>
 
+
+### Remote control
+
+Keep in mind that each script that will run will be sent as a command through the GCM.
 ## Acronyms
 
 - LEO - Low Earth Orbit
