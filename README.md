@@ -141,7 +141,7 @@ Keep in mind that TMTC will only be available for a period of time until the Cub
 
 The entire CubeSat video flight will be stored on the video card. <br>
 Because the RFM allows communication over a relatively short distance with the GCM the flight parameters will be stored on the OBC's internal SD Card. <br>
-The OBSW will notify the approaching maximum range and detect the loss of GCM connection, and the data will be passed in .txt(???) format. <br>
+The OBSW will notify the approaching maximum range and detect the loss of GCM connection, and the data will be passed in .txt format. <br>
 
 
 ## Acronyms
