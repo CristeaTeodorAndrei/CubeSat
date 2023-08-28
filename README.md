@@ -67,7 +67,7 @@ In order to reduce energy usage and ensure efficient performance of the whole sy
 - Deactivating UI
 
 By requesting the OBC to run the script <b> Optimization.py</b> via GCM all of those optimizations will be applied and after that the OBC will reboot. <br>
-After restarting the system, the GREEN LED will turn ON and RED LED OFF to indicate successful optimization and a confirmation message should appear in GCM's Interface. <br>
+After restarting the system, the GREEN LED will turn ON and RED LED OFF to indicate successful optimization and a confirmation message should appear in GCM's Interface. <br><br>
 OBC can proceed to the testing phase.
 
 ### Testing Phase
