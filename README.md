@@ -23,16 +23,17 @@ The future goal of this project is to reach LEO.
     3. BMP280 Pressure Sensor
     4. Raspberry Pi Camera Module 2
     5. NRF20L01 Wireless Module
-    6. Battery System 
+    6. Battery System UPS 
 
 ### Software specs
 
 OBSW was developed in Python, and the operating system on which the software runs is Raspberian on which some software optimizations have been applied.  <br>
-The project is structured in 3 phases:
+The project is structured in 4 phases:
 
 - Optimization phase
 - Testing phase
 - OBSW phase
+- Activating Remote Control Phase
 
 <br>
 Each of these phases has a well-defined objective and must be fulfilled before the final code runs.
@@ -40,7 +41,7 @@ Each of these phases has a well-defined objective and must be fulfilled before t
 ## Guideline
 
 
-### Remote Control Phase
+### Activating Remote Control Phase
 
 Keep in mind that each script that will run will be sent as a command through the GCM. <br>
 
@@ -51,8 +52,8 @@ Prepare the GCM by plug in the power source and open the receiver Interface.
 
 Power on the OBC.
 
-- Both GREEN and RED LEDS should be ON indicating that OBC is alive.
-- A succesful connection message should appear on GCM's Interface to ensure that OBC is connected and can proceed to the optimization phase.
+- Both GREEN and RED LEDS should be ON indicating that OBC is active and ready for requests.
+- A succesful connection message should appear on GCM's Interface to ensure that communcations with the OBC is active and can proceed to the optimization phase.
 
 <br>
 GCM will try to connect with the OBC every 5 seconds.
@@ -67,7 +68,8 @@ In order to reduce energy usage and ensure efficient performance of the whole sy
 - Deactivating UI
 
 By requesting the OBC to run the script <b> Optimization.py</b> via GCM all of those optimizations will be applied and after that the OBC will reboot. <br>
-After restarting the system, the GREEN LED will turn ON and RED LED OFF to indicate successful optimization and a confirmation message should appear in GCM's Interface. <br><br>
+After restarting the system, the GREEN LED will turn ON and RED LED OFF to indicate successful optimization and a confirmation message should appear in GCM's Interface. <br>
+<br>
 OBC can proceed to the testing phase.
 
 ### Testing Phase
