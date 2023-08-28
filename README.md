@@ -39,27 +39,23 @@ Each of these phases has a well-defined objective and must be fulfilled before t
 
 ## Guideline
 
-### Initialization
-
-Before all the steps should be read Remote Control phase. <br>
-
-The following steps should be performed before the core software will run:
-
-1. Prepare the GCM by plug in the power source and open the receiver interface
-
-- A successful connection message should be displayed in the terminal.
-- A warning message should appear to notify the failure to connect with the OBC.
-
-2. Plug in the OBC and follow the steps:
-
-- Start OS Optimization code (Optimization.py).[^1]
-- Start Testing Phase.[^2]
-- Run OnBoard Software code (OBSW.py).
-
 
 ### Remote Control Phase
 
-Keep in mind that each script that will run will be sent as a command through the GCM.
+Keep in mind that each script that will run will be sent as a command through the GCM. <br>
+
+Prepare the GCM by plug in the power source and open the receiver interface.
+
+- A successful connection message should be displayed in the interface.
+- A warning message should appear to notify the failure to connect with the OBC. <br>
+
+Power on the OBC.
+
+- Both GREEN and RED LEDS should be ON indicating that OBC is alive.
+- A succesful connection message should appear on GCM's interface to ensure that OBC is connected and can proceed to the optimization phase.
+
+<br>
+GCM will try to connect with the OBC every 5 seconds.
 
 ### Optimization Phase
 
@@ -70,12 +66,12 @@ In order to reduce energy usage and ensure efficient performance of the whole sy
 - Deactivating Update Module
 - Deactivating UI
 
-By running the script <b> Optimization.py</b> all of those optimizations will be applied and after that the OBC will reboot. <br>
-After restarting the system, the GREEN LED will be permanently ON to indicate successful optimization and to ensure that OBC can proceed to the next phase.
+By requesting the OBC to run the script <b> Optimization.py</b> via GCM all of those optimizations will be applied and after that the OBC will reboot. <br>
+After restarting the system, the GREEN LED will turn ON and RED LED OFF to indicate successful optimization and to ensure that OBC can proceed to the testing phase.
 
 ### Testing Phase
 
-Running the script <b>Test.py</b>, the OBC begins testing sequence and a custom TM is sent to the GCM via the RFM that indicates the sensors has been detected. <br>
+By requesting the OBC to run the script <b>Test.py</b>, the OBC begins testing sequence and a custom TM is sent back to the GCM that indicates the sensors has been detected. <br>
 If the RFM is not working or is not responding the RED LED will blink continuously.<br>
 If the RFM is working the GREEN LED will blink continuously and a TM will be send to the GCM with the following format:
 
