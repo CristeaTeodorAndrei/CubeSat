@@ -4,9 +4,9 @@
 
 ### About CubeSat
 
-A CubeSat serves as a compact yet sophisticated space platform, designed with meticulous engineering to achieve targeted scientific objectives. These miniaturized satellites are crafted with precision and purpose, representing a cost-effective and efficient approach to space exploration. Their primary role revolves around specific scientific, technological, or educational missions. <br>
-Equipped with specialized payloads, sensors, and instruments, CubeSats are deployed to gather critical data, monitor phenomena, or conduct experiments in space. These small wonders demonstrate engineering ingenuity, showcasing how intricate systems can be optimized to function flawlessly within a constrained space. Their modular nature allows for versatility, enabling CubeSats to address a diverse array of research goals, from Earth observation to studying cosmic phenomena. <br>
-These diminutive pioneers contribute to the advancement of our understanding of the cosmos, proving that innovation can thrive even within the confines of a compact form factor.
+A CubeSat is a compact but sophisticated space platform, meticulously engineered to achieve its scientific goals. These miniaturised satellites are created with precision and purpose, representing a cost-effective and efficient approach to space exploration. Their primary role involves specific scientific, technological or educational missions. <br>
+Equipped with payloads, sensors and specialised instruments, CubeSats are deployed to collect critical data, monitor phenomena or conduct experiments in space. Their modular nature allows for versatility, enabling CubeSats to address a wide range of research objectives, from observing Earth to studying cosmic phenomena. <br>
+They contribute to advancing our understanding of the cosmos, demonstrating that innovation can thrive even within the confines of a compact form factor.
 
 ### About the project
 
