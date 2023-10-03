@@ -10,9 +10,8 @@ They contribute to advancing our understanding of the cosmos, demonstrating that
 
 ### About the project
 
-The project was developed with the goal of creating a mini-satellite that would photograph and film the Earth's curvature at about 30 kilometres above the ground. <br>
-In order to reach the altitude of 30 kilometres the CubeSat will be lifted using a helium balloon and returned using a parachute. <br>
-The future goal of this project is to reach LEO.
+The project was developed with the objective of understanding the complexity of space systems, approaching the different problems that arise in this field and solving them in the most energy and cost efficient way. <br>
+The future of this project consists in creating a stable platform that allows future improvements so that young students in this domain can develop.
 
 ## CubeSat specifications
 
