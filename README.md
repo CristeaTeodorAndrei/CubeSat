@@ -145,7 +145,6 @@ The OBSW will notify the approaching maximum range and detect the loss of GCM co
 
 ## Acronyms
 
-- LEO - Low Earth Orbit
 - OBSW - OnBoard Software
 - UI - User Interface
 - OBC - OnBoard Computer
