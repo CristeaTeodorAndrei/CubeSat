@@ -68,7 +68,7 @@ In order to reduce energy usage and ensure efficient performance of the whole sy
 - Deactivating UI
 
 By requesting the OBC to run the script <b> Optimization.py</b> via GCM all of those optimizations will be applied and after that the OBC will reboot. <br>
-After restarting the system, the GREEN LED will turn ON and RED LED OFF to indicate successful optimization and a confirmation message should appear. in GCM's Interface. <br>
+After restarting the system, the GREEN LED will turn ON and RED LED OFF to indicate successful optimization and a confirmation message should appear in GCM's Interface. <br>
 <br>
 OBC can proceed to the testing phase.
 
@@ -120,11 +120,7 @@ A nominal TM should have the following format:
 TM's params should have the following values:
 
 1. <b>TimeStamp</b> [seconds] float (Eg. 1.00) and represent the relative time.
-2. <b>Voltage</b> hex format (Eg. 0x00).
-
-- 0x00 indicates that the voltage is nominal.
-- 0x05 indicates that the OBC is undervoltage and the power supply should be checked.
-
+2. <b>Voltage</b> float (Eg. 1.2) and represent the core voltage.
 3. <b>Temperature</b>[degrees] float (Eg. 57.01) and represent the OBC's temperature.
 4. <b>Load</b> [%] integer (Eg. 5%) and represent the OBC's load.
 5. <b>Acceleration{X,Y,Z}</b>[m/s^2] float (Eg. 10.32) and represent the acceleration on each axis.
@@ -138,7 +134,7 @@ Keep in mind that TMTC will only be available for a period of time until the Cub
 
 ### SDCard
 
-The entire CubeSat video flight will be stored on the video card. <br>
+Cubesat will have a Raspberry Pi Camera Module 2 connected and the record will be stored on the SD Card. <br>
 Because the RFM allows communication over a relatively short distance with the GCM the flight parameters will be stored on the OBC's internal SD Card. <br>
 The OBSW will notify the approaching maximum range and detect the loss of GCM connection, and the data will be passed in .txt format. <br>
 
