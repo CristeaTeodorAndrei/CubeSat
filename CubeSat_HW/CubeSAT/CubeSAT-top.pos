@@ -1,0 +1,14 @@
+### Footprint positions - created on Fri Aug 25 10:56:11 2023 ###
+### Printed by KiCad version 7.0.5
+## Unit = mm, Angle = deg.
+## Side : top
+# Ref     Val                  Package                                  PosX       PosY       Rot  Side
+D1        G_LED                LED_0603_1608Metric                  221.8600  -112.3100  180.0000  top
+D2        G_LED                LED_0603_1608Metric                  225.9000  -112.3100  180.0000  top
+J1        Conn_02x06_Odd_Even  IDC-Header_2x06_P2.54mm_Horizontal   215.6200   -74.2800   90.0000  top
+J2        Conn_02x04_Odd_Even  PinHeader_2x04_P2.54mm_Vertical      221.0000   -84.4000    0.0000  top
+J4        Conn_01x08_Pin       PinSocket_1x08_P2.54mm_Vertical      189.9500   -68.5300    0.0000  top
+J5        Conn_01x06_Pin       PinSocket_1x06_P2.54mm_Vertical      190.5000   -92.4600    0.0000  top
+R1        100R                 R_0603_1608Metric                    221.8900  -109.8450  -90.0000  top
+R2        100R                 R_0603_1608Metric                    225.9000  -109.8000  -90.0000  top
+## End
