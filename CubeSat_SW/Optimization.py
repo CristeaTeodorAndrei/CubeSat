@@ -22,7 +22,7 @@ def dependencies():
 def disable_wifi():
     try:
         subprocess.check_output(['sudo', 'ifconfig', 'wlan0', 'down'], stderr=subprocess.DEVNULL)
-        print(f"{Color_schema.Colors.GREEN} Wi-Fi service is already deactivated!{Color_schema.Colors.RESET}")
+        print(f"{Color_schema.Colors.GREEN}Wi-Fi service is already deactivated!{Color_schema.Colors.RESET}")
     except subprocess.CalledProcessError:
         try:
             subprocess.check_call(['sudo', 'ifconfig', 'wlan0', 'down'], stderr=subprocess.DEVNULL)
@@ -44,23 +44,13 @@ def disable_gui():
 def disable_bluetooth():
     try:
         subprocess.check_output(['sudo', 'systemctl', 'is-enabled', '--quiet', 'bluetooth.service'], stderr=subprocess.DEVNULL)
-        print(f"{Color_schema.Colors.GREEN} Bluetooth service is already deactivated!{Color_schema.Colors.RESET}")
+        print(f"{Color_schema.Colors.GREEN}Bluetooth service is already deactivated!{Color_schema.Colors.RESET}")
     except subprocess.CalledProcessError:
         try:
             subprocess.check_call(['sudo', 'systemctl', 'disable', 'bluetooth.service'], stderr=subprocess.DEVNULL)
-            print(f"{Color_schema.Colors.ORANGE} Deactivating Bluetooth service!{Color_schema.Colors.RESET}")
+            print(f"{Color_schema.Colors.ORANGE}Deactivating Bluetooth service!{Color_schema.Colors.RESET}")
         except subprocess.CalledProcessError as e:
-            print(f"{Color_schema.Colors.RED} Error trying to deactivate Bluetooth service: {e.returncode}{Color_schema.Colors.RESET}")
-
-    try:
-        subprocess.check_output(['sudo', 'systemctl', 'is-enabled', '--quiet', 'hciuart.service'], stderr=subprocess.DEVNULL)
-        print(f"{Color_schema.Colors.GREEN}HCIUART service is already deactivated!{Color_schema.Colors.RESET}")
-    except subprocess.CalledProcessError:
-        try:
-            subprocess.check_call(['sudo', 'systemctl', 'disable', 'hciuart.service'], stderr=subprocess.DEVNULL)
-            print(f"{Color_schema.Colors.GREEN}Deactivating HCIUART service!{Color_schema.Colors.RESET}")
-        except subprocess.CalledProcessError as e:
-            print(f"{Color_schema.Colors.GREEN}Error trying to deactivate HCIUART service: {e.returncode}{Color_schema.Colors.RESET}")
+            print(f"{Color_schema.Colors.RED}Error trying to deactivate Bluetooth service: {e.returncode}{Color_schema.Colors.RESET}")
             
 def disable_updates():
     try:
