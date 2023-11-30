@@ -11,15 +11,18 @@ def dependencies():
         subprocess.run(['pip3', '--version'], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         subprocess.run(['sudo', 'apt-get', 'install', '-y', 'i2c-tools'], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         print(f"{Color_schema.Colors.GREEN}System dependencies are already installed!{Color_schema.Colors.RESET}")
+        print("\n")
 
     except subprocess.CalledProcessError:
         try:
             subprocess.run(['sudo', 'apt-get', 'update'], check=True, stderr=subprocess.DEVNULL)
             subprocess.run(['sudo', 'apt-get', 'install', '-y', 'python3', 'python3-pip', 'i2c-tools'], check=True, stderr=subprocess.DEVNULL)
             print(f"{Color_schema.Colors.GREEN}System dependencies installed successfully!{Color_schema.Colors.RESET}")
-
+            print("\n")
         except subprocess.CalledProcessError as e:
             print(f"{Color_schema.Colors.RED}Error installing system dependencies: {e.returncode}{Color_schema.Colors.RESET}")
+            print("\n")
+            
 
     try:
         subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_i2c', '0'], check=True, stderr=subprocess.DEVNULL)
@@ -34,12 +37,15 @@ def dependencies():
     try:
         subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_spi', '0'], check=True, stderr=subprocess.DEVNULL)
         print(f"{Color_schema.Colors.GREEN}SPI is already activated!{Color_schema.Colors.RESET}")
+        print("\n")
     except subprocess.CalledProcessError:
         try:
             subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_spi', '0'], check=True, stderr=subprocess.DEVNULL)
             print(f"{Color_schema.Colors.GREEN}SPI activated successfully!{Color_schema.Colors.RESET}")
+            print("\n")
         except subprocess.CalledProcessError as e:
             print(f"{Color_schema.Colors.RED}Error activating SPI: {e.returncode}{Color_schema.Colors.RESET}")
+            print("\n")
 
 
     for package in python_packages:
@@ -49,6 +55,7 @@ def dependencies():
         except subprocess.CalledProcessError as e:
             print(f"{Color_schema.Colors.RED}Error installing package {package}: {e.returncode}{Color_schema.Colors.RESET}")
     
+    print("\n")
 def disable_wifi():
     try:
         subprocess.check_output(['sudo', 'ifconfig', 'wlan0', 'down'], stderr=subprocess.DEVNULL)
