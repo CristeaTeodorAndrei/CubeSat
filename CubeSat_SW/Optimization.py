@@ -7,9 +7,9 @@ def dependencies():
     python_packages = ["smbus2", "adafruit-circuitpython-ina219"]
 
     try:
-        subprocess.run(['python3', '--version'], check=True, stderr=subprocess.DEVNULL)
-        subprocess.run(['pip3', '--version'], check=True, stderr=subprocess.DEVNULL)
-        subprocess.run(['sudo', 'apt-get', 'install', '-y', 'i2c-tools'], check=True, stderr=subprocess.DEVNULL)
+        subprocess.run(['python3', '--version'], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        subprocess.run(['pip3', '--version'], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        subprocess.run(['sudo', 'apt-get', 'install', '-y', 'i2c-tools'], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         print(f"{Color_schema.Colors.GREEN}System dependencies are already installed!{Color_schema.Colors.RESET}")
 
     except subprocess.CalledProcessError:
