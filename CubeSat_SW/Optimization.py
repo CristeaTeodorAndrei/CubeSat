@@ -15,13 +15,13 @@ def dependencies():
         print("\n")
             
     try:
-        subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_i2c', '0'], check=True, stdout=subprocess.DEVNULL)
+        subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_i2c', '0'], check=True, stderr=subprocess.DEVNULL)
         print(f"{Color_schema.Colors.GREEN}I2C - Activated{Color_schema.Colors.RESET}")
     except subprocess.CalledProcessError as e:
         print(f"{Color_schema.Colors.RED}Error activating I2C: {e.returncode}{Color_schema.Colors.RESET}")
 
     try:
-        subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_spi', '0'], check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+        subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_spi', '0'], check=True, stderr=subprocess.DEVNULL)
         print(f"{Color_schema.Colors.GREEN}SPI - Activated{Color_schema.Colors.RESET}")
         print("\n")
     except subprocess.CalledProcessError as e:
@@ -31,7 +31,7 @@ def dependencies():
 
     for package in python_packages:
         try:
-            subprocess.run(["pip3", "install", "--upgrade", "-q", package], check=True, stderr=subprocess.DEVNULL)
+            subprocess.run(["pip3", "install", "--upgrade", package], check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
             print(f"{Color_schema.Colors.GREEN}Package {package} - Installed{Color_schema.Colors.RESET}")
         except subprocess.CalledProcessError as e:
             print(f"{Color_schema.Colors.RED}Error installing package {package}: {e.returncode}{Color_schema.Colors.RESET}")
