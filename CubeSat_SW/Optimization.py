@@ -31,7 +31,7 @@ def dependencies():
 
     for package in python_packages:
         try:
-            subprocess.run(["pip3", "install", "--upgrade", package], check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+            subprocess.run(["pip3", "install", "--upgrade", "-q", package], check=True, stderr=subprocess.DEVNULL)
             print(f"{Color_schema.Colors.GREEN}Package {package} - Installed{Color_schema.Colors.RESET}")
         except subprocess.CalledProcessError as e:
             print(f"{Color_schema.Colors.RED}Error installing package {package}: {e.returncode}{Color_schema.Colors.RESET}")
@@ -86,8 +86,8 @@ def optimization_start():
         dependencies()
         disable_wifi()
         disable_gui()
-        #disable_bluetooth()
-        #disable_updates()
+        disable_bluetooth()
+        disable_updates()
 
         print(f"{Color_schema.Colors.GREEN}Operations completed successfully. Rebooting OnBoard Computer in 10 seconds!{Color_schema.Colors.RESET}")
         time.sleep(10)
