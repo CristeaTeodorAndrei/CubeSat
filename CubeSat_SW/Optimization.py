@@ -7,17 +7,17 @@ def dependencies():
     python_packages = ["smbus2", "Adafruit-INA219"]
 
     try:
-        subprocess.run(["./bash/protocols.sh"], check=True, shell=True)
-        print(f"{Color_schema.Colors.GREEN}I2C/SPI communication protocols and system dependencies have been activated!{Color_schema.Colors.RESET}", stderr=subprocess.DEVNULL) 
+        subprocess.run(["./bash/protocols.sh"], check=True, shell=True, stderr=subprocess.DEVNULL)
+        print(f"{Color_schema.Colors.GREEN}I2C/SPI communication protocols and system dependencies have been activated!{Color_schema.Colors.RESET}") 
     except subprocess.CalledProcessError as e:
-        print(f"{Color_schema.Colors.RED}Error installing system dependencies: {e}{Color_schema.Colors.RESET}", stderr=subprocess.DEVNULL)
+        print(f"{Color_schema.Colors.RED}Error installing system dependencies: {e}{Color_schema.Colors.RESET}")
 
     for package in python_packages:
         try:
-            subprocess.run(["pip3", "install", "--upgrade", package], check=True)
-            print(f"{Color_schema.Colors.GREEN}Package {package} installed successfully.{Color_schema.Colors.RESET}", stderr=subprocess.DEVNULL)
+            subprocess.run(["pip3", "install", "--upgrade", package], check=True, stderr=subprocess.DEVNULL)
+            print(f"{Color_schema.Colors.GREEN}Package {package} installed successfully.{Color_schema.Colors.RESET}")
         except subprocess.CalledProcessError as e:
-            print(f"{Color_schema.Colors.RED}Error installing package {package}: {e}{Color_schema.Colors.RESET}", stderr=subprocess.DEVNULL)
+            print(f"{Color_schema.Colors.RED}Error installing package {package}: {e}{Color_schema.Colors.RESET}")
     
 def disable_wifi():
     try:
