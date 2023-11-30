@@ -8,64 +8,64 @@ def dependencies():
 
     try:
         subprocess.run(["./bash/protocols.sh"], check=True, shell=True)
-        print(f"{Color_schema.Colors.GREEN}I2C/SPI communication protocols and system dependencies have been activated!{Color_schema.Colors.RESET}")
+        print(f"{Color_schema.Colors.GREEN}I2C/SPI communication protocols and system dependencies have been activated!{Color_schema.Colors.RESET}", stderr=subprocess.DEVNULL) 
     except subprocess.CalledProcessError as e:
-        print(f"{Color_schema.Colors.RED}Error installing system dependencies: {e}{Color_schema.Colors.RESET}")
+        print(f"{Color_schema.Colors.RED}Error installing system dependencies: {e}{Color_schema.Colors.RESET}", stderr=subprocess.DEVNULL)
 
     for package in python_packages:
         try:
             subprocess.run(["pip3", "install", "--upgrade", package], check=True)
-            print(f"{Color_schema.Colors.GREEN}Package {package} installed successfully.{Color_schema.Colors.RESET}")
+            print(f"{Color_schema.Colors.GREEN}Package {package} installed successfully.{Color_schema.Colors.RESET}", stderr=subprocess.DEVNULL)
         except subprocess.CalledProcessError as e:
-            print(f"{Color_schema.Colors.RED}Error installing package {package}: {e}{Color_schema.Colors.RESET}")
+            print(f"{Color_schema.Colors.RED}Error installing package {package}: {e}{Color_schema.Colors.RESET}", stderr=subprocess.DEVNULL)
     
 def disable_wifi():
     try:
         subprocess.check_output(['sudo', 'ifconfig', 'wlan0', 'down'])
-        print(f"{Color_schema.Colors.GREEN} Wi-Fi service is already deactivated!{Color_schema.Colors.RESET}")
+        print(f"{Color_schema.Colors.GREEN} Wi-Fi service is already deactivated!{Color_schema.Colors.RESET}", stderr=subprocess.DEVNULL)
     except subprocess.CalledProcessError:
         try:
             subprocess.check_call(['sudo', 'ifconfig', 'wlan0', 'down'])
-            print(f"{Color_schema.Color_schema.ORANGE} Deactivating Wi-Fi service!{Color_schema.Colors.RESET}")
+            print(f"{Color_schema.Color_schema.ORANGE} Deactivating Wi-Fi service!{Color_schema.Colors.RESET}", stderr=subprocess.DEVNULL)
         except subprocess.CalledProcessError as e:
-            print(f"{Color_schema.Colors.RED}Error trying to disable Wi-Fi service: {e} {Color_schema.Colors.RESET}")
+            print(f"{Color_schema.Colors.RED}Error trying to disable Wi-Fi service: {e} {Color_schema.Colors.RESET}", stderr=subprocess.DEVNULL)
     
 def disable_gui():
     try:
         subprocess.check_output(['sudo', 'systemctl', 'is-active', '--quiet', 'lightdm'])
-        print(f"{Color_schema.Colors.GREEN}GUI service is already deactivated!{Color_schema.Colors.RESET}")
+        print(f"{Color_schema.Colors.GREEN}GUI service is already deactivated!{Color_schema.Colors.RESET}", stderr=subprocess.DEVNULL)
     except subprocess.CalledProcessError:
         try:
             subprocess.check_call(['sudo', 'systemctl', 'stop', 'lightdm'])
-            print(f"{Color_schema.Colors.ORANGE}Deactivating GUI service!{Color_schema.Colors.RESET}")
+            print(f"{Color_schema.Colors.ORANGE}Deactivating GUI service!{Color_schema.Colors.RESET}", stderr=subprocess.DEVNULL)
         except subprocess.CalledProcessError as e:
-            print(f"{Color_schema.Colors.RED}Error trying to disable GUI service: {e}{Color_schema.Colors.RESET}")
+            print(f"{Color_schema.Colors.RED}Error trying to disable GUI service: {e}{Color_schema.Colors.RESET}", stderr=subprocess.DEVNULL)
     
 def disable_bluetooth():
     try:
         subprocess.check_output(['sudo', 'systemctl', 'is-enabled', '--quiet', 'bluetooth.service'])
-        print(f"{Color_schema.Colors.GREEN} Bluetooth service is already deactivated!{Color_schema.Colors.RESET}")
+        print(f"{Color_schema.Colors.GREEN} Bluetooth service is already deactivated!{Color_schema.Colors.RESET}", stderr=subprocess.DEVNULL)
     except subprocess.CalledProcessError:
         try:
             subprocess.check_call(['sudo', 'systemctl', 'disable', 'bluetooth.service'])
-            print(f"{Color_schema.Colors.ORANGE} Deactivating Bluetooth service!{Color_schema.Colors.RESET}")
+            print(f"{Color_schema.Colors.ORANGE} Deactivating Bluetooth service!{Color_schema.Colors.RESET}", stderr=subprocess.DEVNULL)
         except subprocess.CalledProcessError as e:
-            print(f"{Color_schema.Colors.RED} Error trying to deactivate Bluetooth service: {e}{Color_schema.Colors.RESET}")
+            print(f"{Color_schema.Colors.RED} Error trying to deactivate Bluetooth service: {e}{Color_schema.Colors.RESET}", stderr=subprocess.DEVNULL)
 
     try:
         subprocess.check_output(['sudo', 'systemctl', 'is-enabled', '--quiet', 'hciuart.service'])
-        print(f"{Color_schema.Colors.GREEN}HCIUART service is already deactivated!{Color_schema.Colors.RESET}")
+        print(f"{Color_schema.Colors.GREEN}HCIUART service is already deactivated!{Color_schema.Colors.RESET}", stderr=subprocess.DEVNULL)
     except subprocess.CalledProcessError:
         try:
             subprocess.check_call(['sudo', 'systemctl', 'disable', 'hciuart.service'])
-            print(f"{Color_schema.Colors.GREEN}Deactivating HCIUART service!{Color_schema.Colors.RESET}")
+            print(f"{Color_schema.Colors.GREEN}Deactivating HCIUART service!{Color_schema.Colors.RESET}", stderr=subprocess.DEVNULL)
         except subprocess.CalledProcessError as e:
-            print(f"{Color_schema.Colors.GREEN}Error trying to deactivate HCIUART service: {e}{Color_schema.Colors.RESET}")
+            print(f"{Color_schema.Colors.GREEN}Error trying to deactivate HCIUART service: {e}{Color_schema.Colors.RESET}", stderr=subprocess.DEVNULL)
             
 def disable_updates():
     try:
         subprocess.run(["sudo", "systemctl", "is-active", "--quiet", "apt-daily.timer"])
-        print(f"{Color_schema.Colors.GREEN}Automatic updates service is already deactivated.{Color_schema.Colors.RESET}")
+        print(f"{Color_schema.Colors.GREEN}Automatic updates service is already deactivated.{Color_schema.Colors.RESET}", stderr=subprocess.DEVNULL)
     except subprocess.CalledProcessError:
         print("Deactivating automatic updates service", end='', flush=True)
         try:
@@ -76,14 +76,14 @@ def disable_updates():
             subprocess.run(["sudo", "systemctl", "stop", "apt-daily.service"])
             print(".", end='', flush=True)
             subprocess.run(["sudo", "systemctl", "stop", "apt-daily-upgrade.service"])
-            print(f"\n{Color_schema.Colors.ORANGE}Automatic updates have been successfully disabled.{Color_schema.Colors.RESET}")
+            print(f"\n{Color_schema.Colors.ORANGE}Automatic updates have been successfully disabled.{Color_schema.Colors.RESET}", stderr=subprocess.DEVNULL)
         except subprocess.CalledProcessError as e:
-            print(f"\n{Color_schema.Colors.RED}Error while disabling automatic updates: {e}{Color_schema.Colors.RESET}")
+            print(f"\n{Color_schema.Colors.RED}Error while disabling automatic updates: {e}{Color_schema.Colors.RESET}", stderr=subprocess.DEVNULL)
 
-def reboot():
-    print(f"{Color_schema.Colors.GREEN} Rebooting OnBoard Computer in 3 seconds!")
-    time.sleep(3)
-    try:
-        subprocess.run(["sudo", "reboot"], check=True)
-    except subprocess.CalledProcessError as e:
-        print(f"Error restarting OnBoard Computer: {e}")       
+# def reboot():
+#     print(f"{Color_schema.Colors.GREEN} Rebooting OnBoard Computer in 3 seconds!")
+#     time.sleep(3)
+#     try:
+#         subprocess.run(["sudo", "reboot"], check=True)
+#     except subprocess.CalledProcessError as e:
+#         print(f"Error restarting OnBoard Computer: {e}")       
