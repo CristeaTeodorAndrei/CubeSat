@@ -10,14 +10,14 @@ def dependencies():
         subprocess.run(["./bash/protocols.sh"], check=True, shell=True, stderr=subprocess.DEVNULL)
         print(f"{Color_schema.Colors.GREEN}I2C/SPI communication protocols and system dependencies have been activated!{Color_schema.Colors.RESET}") 
     except subprocess.CalledProcessError as e:
-        print(f"{Color_schema.Colors.RED}Error installing system dependencies: {e}{Color_schema.Colors.RESET}")
+        print(f"{Color_schema.Colors.RED}Error installing system dependencies: {e.returncode}{Color_schema.Colors.RESET}")
 
     for package in python_packages:
         try:
             subprocess.run(["pip3", "install", "--upgrade", "-q", package], check=True, stderr=subprocess.DEVNULL)
             print(f"{Color_schema.Colors.GREEN}Package {package} installed successfully!{Color_schema.Colors.RESET}")
         except subprocess.CalledProcessError as e:
-            print(f"{Color_schema.Colors.RED}Error installing package! {package}: {e}{Color_schema.Colors.RESET}")
+            print(f"{Color_schema.Colors.RED}Error installing package! {package}: {e.returncode}{Color_schema.Colors.RESET}")
     
 def disable_wifi():
     try:
@@ -26,9 +26,9 @@ def disable_wifi():
     except subprocess.CalledProcessError:
         try:
             subprocess.check_call(['sudo', 'ifconfig', 'wlan0', 'down'], stderr=subprocess.DEVNULL)
-            print(f"{Color_schema.Color_schema.ORANGE} Deactivating Wi-Fi service!{Color_schema.Colors.RESET}")
+            print(f"{Color_schema.Color_schema.ORANGE}Deactivating Wi-Fi service!{Color_schema.Colors.RESET}")
         except subprocess.CalledProcessError as e:
-            print(f"{Color_schema.Colors.RED}Error trying to disable Wi-Fi service: {e} {Color_schema.Colors.RESET}")
+            print(f"{Color_schema.Colors.RED}Error trying to disable Wi-Fi service: {e.returncode} {Color_schema.Colors.RESET}")
     
 def disable_gui():
     try:
@@ -39,7 +39,7 @@ def disable_gui():
             subprocess.check_call(['sudo', 'systemctl', 'stop', 'lightdm'], stderr=subprocess.DEVNULL)
             print(f"{Color_schema.Colors.ORANGE}Deactivating GUI service!{Color_schema.Colors.RESET}")
         except subprocess.CalledProcessError as e:
-            print(f"{Color_schema.Colors.RED}Error trying to disable GUI service: {e}{Color_schema.Colors.RESET}")
+            print(f"{Color_schema.Colors.RED}Error trying to disable GUI service: {e.returncode}{Color_schema.Colors.RESET}")
     
 def disable_bluetooth():
     try:
@@ -50,7 +50,7 @@ def disable_bluetooth():
             subprocess.check_call(['sudo', 'systemctl', 'disable', 'bluetooth.service'], stderr=subprocess.DEVNULL)
             print(f"{Color_schema.Colors.ORANGE} Deactivating Bluetooth service!{Color_schema.Colors.RESET}")
         except subprocess.CalledProcessError as e:
-            print(f"{Color_schema.Colors.RED} Error trying to deactivate Bluetooth service: {e}{Color_schema.Colors.RESET}")
+            print(f"{Color_schema.Colors.RED} Error trying to deactivate Bluetooth service: {e.returncode}{Color_schema.Colors.RESET}")
 
     try:
         subprocess.check_output(['sudo', 'systemctl', 'is-enabled', '--quiet', 'hciuart.service'], stderr=subprocess.DEVNULL)
@@ -60,7 +60,7 @@ def disable_bluetooth():
             subprocess.check_call(['sudo', 'systemctl', 'disable', 'hciuart.service'], stderr=subprocess.DEVNULL)
             print(f"{Color_schema.Colors.GREEN}Deactivating HCIUART service!{Color_schema.Colors.RESET}")
         except subprocess.CalledProcessError as e:
-            print(f"{Color_schema.Colors.GREEN}Error trying to deactivate HCIUART service: {e}{Color_schema.Colors.RESET}")
+            print(f"{Color_schema.Colors.GREEN}Error trying to deactivate HCIUART service: {e.returncode}{Color_schema.Colors.RESET}")
             
 def disable_updates():
     try:
@@ -78,7 +78,7 @@ def disable_updates():
             subprocess.run(["sudo", "systemctl", "stop", "apt-daily-upgrade.service"], stderr=subprocess.DEVNULL)
             print(f"\n{Color_schema.Colors.ORANGE}Automatic updates have been successfully disabled.{Color_schema.Colors.RESET}")
         except subprocess.CalledProcessError as e:
-            print(f"\n{Color_schema.Colors.RED}Error while disabling automatic updates: {e}{Color_schema.Colors.RESET}")
+            print(f"\n{Color_schema.Colors.RED}Error while disabling automatic updates: {e.returncode}{Color_schema.Colors.RESET}")
 
 # def reboot():
 #     print(f"{Color_schema.Colors.GREEN} Rebooting OnBoard Computer in 3 seconds!")
