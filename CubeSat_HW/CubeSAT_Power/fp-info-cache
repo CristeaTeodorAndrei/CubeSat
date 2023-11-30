@@ -1,14 +1,21 @@
-97717317500816
+113846953843382
 Connector_USB
 USB3_A_Molex_48393-001
-USB 3.0, type A, right angle (http://www.molex.com/pdm_docs/sd/483930003_sd.pdf)
+USB 3.0, type A, right angle, http://www.molex.com/pdm_docs/sd/483930003_sd.pdf
 USB 3.0 type A right angle
 0
 13
 10
 Connector_USB
+USB3_A_Molex_48406-0001_Horizontal_Stacked
+USB 3.0, type A, right angle, stacked (https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/484/48406/484060001_sd.pdf)
+USB 3.0 type A right angle stacked dual
+0
+22
+19
+Connector_USB
 USB3_A_Plug_Wuerth_692112030100_Horizontal
-USB3 type A Plug, Horizontal, http://katalog.we-online.de/em/datasheet/692112030100.pdf
+USB 3.0 Type A SMT Plug, Horizontal, https://www.we-online.com/components/products/datasheet/692112030100.pdf
 usb A plug horizontal
 0
 11
@@ -49,6 +56,13 @@ USB-A CUI stacked horizontal through-hole
 12
 9
 Connector_USB
+USB_A_Molex_48037-2200_Horizontal
+USB type A Plug, Horizontal, https://www.molex.com/pdm_docs/sd/480372200_sd.pdf
+USB-A
+0
+6
+5
+Connector_USB
 USB_A_Molex_67643_Horizontal
 USB type A, Horizontal, https://www.molex.com/pdm_docs/sd/676433910_sd.pdf
 USB_A Female Connector receptacle
@@ -61,6 +75,13 @@ https://www.molex.com/pdm_docs/sd/1050570001_sd.pdf
 USB A Vertical
 0
 7
+5
+Connector_USB
+USB_A_Receptacle_GCT_USB1046
+GCT USB1046, USB Type A, https://gct.co/files/drawings/usb1046.pdf
+USB SMD Type-A Receptacle Right Angle
+0
+8
 5
 Connector_USB
 USB_A_Stewart_SS-52100-001_Horizontal
@@ -203,6 +224,13 @@ USB C Type-C Receptacle SMD USB 2.0 16P 16C USB4105-15-A USB4105-15-A-060 USB410
 20
 17
 Connector_USB
+USB_C_Receptacle_GCT_USB4110
+USB 2.0 Type C Receptacle, GCT, 16P, top mounted, horizontal, 5A, https://gct.co/files/drawings/usb4110.pdf
+USB 2.0 C Type-C Receptacle SMD 16P 16C USB4110-GF-A
+0
+20
+17
+Connector_USB
 USB_C_Receptacle_GCT_USB4115-03-C
 USB TYPE C, VERT RCPT PCB, SMT, https://gct.co/files/drawings/usb4115.pdf
 USB C Type-C Receptacle SMD
@@ -210,12 +238,33 @@ USB C Type-C Receptacle SMD
 28
 25
 Connector_USB
+USB_C_Receptacle_GCT_USB4125-xx-x-0190_6P_TopMnt_Horizontal
+USB Type C Receptacle, GCT, power-only, 6P, top mounted, horizontal, 3A, 1.9mm stake: https://gct.co/files/drawings/usb4125.pdf
+USB C Type-C receptacle power-only charging-only 6P 6C right angled
+0
+10
+7
+Connector_USB
+USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal
+USB Type C Receptacle, GCT, power-only, 6P, top mounted, horizontal, 3A, 1mm stake: https://gct.co/files/drawings/usb4125.pdf
+USB C Type-C receptacle power-only charging-only 6P 6C right angled
+0
+10
+7
+Connector_USB
 USB_C_Receptacle_GCT_USB4135-GF-A_6P_TopMnt_Horizontal
 USB Type C Receptacle, GCT, power-only, 6P, top mounted, horizontal, 3A: https://gct.co/files/drawings/usb4135.pdf
 USB C Type-C Receptacle SMD USB Power-only Charging-only 6P 6C USB4135-GF-A
 0
 10
 7
+Connector_USB
+USB_C_Receptacle_HCTL_HC-TYPE-C-16P-01A
+16-pin USB-C receptacle, USB2.0 and PD, 5A VBUS rating, https://datasheet.lcsc.com/lcsc/2211161000_HCTL-HC-TYPE-C-16P-01A_C2894897.pdf
+usb usb-c 2.0 pd
+0
+20
+17
 Connector_USB
 USB_C_Receptacle_HRO_TYPE-C-31-M-12
 USB Type-C receptacle for USB 2.0 and PD, http://www.krhro.com/uploads/soft/180320/1-1P320120243.pdf
@@ -285,6 +334,20 @@ USB Micro-B, horizontal, https://cdn.amphenol-icc.com/media/wysiwyg/files/drawin
 USB Micro B horizontal
 0
 9
+6
+Connector_USB
+USB_Micro-B_Amphenol_10118193-0001LF_Horizontal
+USB Micro-B receptacle, horizontal, SMD, 10118193, with flange, https://cdn.amphenol-icc.com/media/wysiwyg/files/drawing/10118193.pdf
+USB Micro-B horizontal SMD
+0
+11
+6
+Connector_USB
+USB_Micro-B_Amphenol_10118193-0002LF_Horizontal
+USB Micro-B receptacle, horizontal, SMD, 10118193, without flange, https://cdn.amphenol-icc.com/media/wysiwyg/files/drawing/10118193.pdf
+USB Micro-B horizontal SMD
+0
+11
 6
 Connector_USB
 USB_Micro-B_Amphenol_10118194_Horizontal
