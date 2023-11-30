@@ -6,8 +6,8 @@ import Color_schema
 def dependencies():
     python_packages = ["smbus2", "adafruit-circuitpython-ina219"]
     try:
-        subprocess.run(['sudo', 'apt-get', 'update'], check=True, stderr=subprocess.DEVNULL)
-        subprocess.run(['sudo', 'apt-get', 'install', '-y', 'python3', 'python3-pip', 'i2c-tools'], check=True, stderr=subprocess.DEVNULL)
+        subprocess.run(['sudo', 'apt-get', 'update'], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        subprocess.run(['sudo', 'apt-get', 'install', '-y', 'python3', 'python3-pip', 'i2c-tools'], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         print(f"{Color_schema.Colors.GREEN}System dependencies - Installed{Color_schema.Colors.RESET}")
         print("\n")
     except subprocess.CalledProcessError as e:
@@ -16,13 +16,13 @@ def dependencies():
 
 
     try:
-        subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_i2c', '0'], check=True)
+        subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_i2c', '0'], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         print(f"{Color_schema.Colors.GREEN}I2C - Activated{Color_schema.Colors.RESET}")
     except subprocess.CalledProcessError as e:
         print(f"{Color_schema.Colors.RED}Error activating I2C: {e.returncode}{Color_schema.Colors.RESET}")
 
     try:
-        subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_spi', '0'], check=True, stderr=subprocess.DEVNULL)
+        subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_spi', '0'], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         print(f"{Color_schema.Colors.GREEN}SPI - Activated{Color_schema.Colors.RESET}")
         print("\n")
     except subprocess.CalledProcessError as e:
@@ -32,7 +32,7 @@ def dependencies():
 
     for package in python_packages:
         try:
-            subprocess.run(["pip3", "install", "--upgrade", "-q", package], check=True, stderr=subprocess.DEVNULL)
+            subprocess.run(["pip3", "install", "--upgrade", "-q", package], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             print(f"{Color_schema.Colors.GREEN}Package {package} - Installed{Color_schema.Colors.RESET}")
         except subprocess.CalledProcessError as e:
             print(f"{Color_schema.Colors.RED}Error installing package {package}: {e.returncode}{Color_schema.Colors.RESET}")
@@ -77,16 +77,11 @@ print("\n")
 
 def optimization_start():
     try:
-        if not dependencies():
-            return
-        if not disable_wifi():
-            return
-        if not disable_gui():
-            return
-        if not disable_bluetooth():
-            return
-        if not disable_updates():
-            return
+        dependencies()
+        disable_wifi()
+        disable_gui()
+        disable_bluetooth()
+        disable_updates()
         print(f"{Color_schema.Colors.GREEN}Operations completed successfully. Rebooting OnBoard Computer in 10 seconds!{Color_schema.Colors.RESET}")
         time.sleep(10)
         subprocess.run(["sudo", "reboot"], check=True)
