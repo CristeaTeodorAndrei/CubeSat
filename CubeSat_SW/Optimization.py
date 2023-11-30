@@ -14,7 +14,6 @@ def dependencies():
         print(f"{Color_schema.Colors.RED}Error installing system dependencies: {e.returncode}{Color_schema.Colors.RESET}")
         print("\n")
 
-
     try:
         subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_i2c', '0'], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         print(f"{Color_schema.Colors.GREEN}I2C - Activated{Color_schema.Colors.RESET}")
@@ -28,7 +27,6 @@ def dependencies():
     except subprocess.CalledProcessError as e:
         print(f"{Color_schema.Colors.RED}Error activating SPI: {e.returncode}{Color_schema.Colors.RESET}")
         print("\n")
-
 
     for package in python_packages:
         try:
@@ -52,7 +50,6 @@ def disable_gui():
         print(f"{Color_schema.Colors.GREEN} GUI - Deactivated{Color_schema.Colors.RESET}")
     except subprocess.CalledProcessError as e:
         print(f"{Color_schema.Colors.RED}Error trying to disable GUI service: {e.returncode}{Color_schema.Colors.RESET}")
-
     
 def disable_bluetooth():
     try:
@@ -73,7 +70,7 @@ def disable_updates():
         print(f"\n{Color_schema.Colors.GREEN}Automatic Updates Service - Deactivated!{Color_schema.Colors.RESET}")
     except subprocess.CalledProcessError as e:
         print(f"\n{Color_schema.Colors.RED}Error while disabling automatic updates: {e.returncode}{Color_schema.Colors.RESET}")
-print("\n")
+    print("\n")
 
 def optimization_start():
     try:
