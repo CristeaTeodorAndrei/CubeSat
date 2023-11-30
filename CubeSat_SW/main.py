@@ -1,12 +1,7 @@
 import Optimization
 
 def main():
-    Optimization.dependencies()
-    Optimization.disable_bluetooth()
-    Optimization.disable_gui()
-    Optimization.disable_updates()
-    Optimization.disable_wifi()
-    Optimization.reboot()
+    Optimization.optimization_start()
 
 
 if __name__=="__main__":

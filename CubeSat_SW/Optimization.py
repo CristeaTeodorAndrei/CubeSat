@@ -56,6 +56,7 @@ def dependencies():
             print(f"{Color_schema.Colors.RED}Error installing package {package}: {e.returncode}{Color_schema.Colors.RESET}")
     
     print("\n")
+
 def disable_wifi():
     try:
         subprocess.check_output(['sudo', 'ifconfig', 'wlan0', 'down'], stderr=subprocess.DEVNULL)
@@ -66,7 +67,7 @@ def disable_wifi():
             print(f"{Color_schema.Color_schema.ORANGE}Deactivating Wi-Fi service!{Color_schema.Colors.RESET}")
         except subprocess.CalledProcessError as e:
             print(f"{Color_schema.Colors.RED}Error trying to disable Wi-Fi service: {e.returncode} {Color_schema.Colors.RESET}")
-    
+   
 def disable_gui():
     try:
         subprocess.check_output(['sudo', 'systemctl', 'is-active', '--quiet', 'lightdm'], stderr=subprocess.DEVNULL)
@@ -107,10 +108,19 @@ def disable_updates():
         except subprocess.CalledProcessError as e:
             print(f"\n{Color_schema.Colors.RED}Error while disabling automatic updates: {e.returncode}{Color_schema.Colors.RESET}")
 
-# def reboot():
-#     print(f"{Color_schema.Colors.GREEN} Rebooting OnBoard Computer in 3 seconds!")
-#     time.sleep(3)
-#     try:
-#         subprocess.run(["sudo", "reboot"], check=True)
-#     except subprocess.CalledProcessError as e:
-#         print(f"Error restarting OnBoard Computer: {e}")       
+def optimization_start():
+    try:
+        dependencies()
+        disable_wifi()
+        disable_gui()
+        disable_bluetooth()
+        disable_updates()
+
+        print(f"{Color_schema.Colors.GREEN}All operations completed successfully. Rebooting OnBoard Computer in 10 seconds!{Color_schema.Colors.RESET}")
+        time.sleep(10)
+        try:
+            subprocess.run(["sudo", "reboot"], check=True)
+        except subprocess.CalledProcessError as e:
+            print(f"{Color_schema.Colors.RED}Error restarting OnBoard Computer: {e}{Color_schema.Colors.GREEN}")
+    except Exception as e:
+        print(f"{Color_schema.Colors.RED}Aborted! An error occurred: {e}{Color_schema.Colors.RESET}")
