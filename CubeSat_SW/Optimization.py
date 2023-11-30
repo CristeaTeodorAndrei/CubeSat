@@ -4,7 +4,6 @@ import Color_schema
 
 
 def dependencies():
-    python_packages = ["smbus2", "adafruit-circuitpython-ina219"]
     try:
         subprocess.run(['sudo', 'apt-get', 'update'], check=True, stderr=subprocess.DEVNULL)
         subprocess.run(['sudo', 'apt-get', 'install', '-y', 'python3', 'python3-pip', 'i2c-tools'], check=True, stderr=subprocess.DEVNULL)
@@ -30,6 +29,8 @@ def dependencies():
         print("\n")
 
 
+def packages():
+    python_packages = ["smbus2", "adafruit-circuitpython-ina219"]
     for package in python_packages:
         try:
             subprocess.run(["pip3", "install", "--upgrade", "-q", package], check=True, stderr=subprocess.DEVNULL)
