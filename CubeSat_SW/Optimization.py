@@ -13,7 +13,6 @@ def dependencies():
     try:
         subprocess.run(['sudo', 'apt-get', 'update'], check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
         subprocess.run(['sudo', 'apt-get', 'install', '-y'] + system_dependencies, check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
-        print(f"{Color_schema.Colors.GREEN}System dependencies - Installed{Color_schema.Colors.RESET}")
         print("\n")
     except subprocess.CalledProcessError as e:
         print(f"{Color_schema.Colors.RED}Error installing system dependencies: {e.returncode}{Color_schema.Colors.RESET}")
@@ -52,12 +51,12 @@ def disable_wifi():
     
 def disable_gui():
     try:
+        subprocess.run(['sudo', 'systemctl', 'isolate', 'multi-user.target', '&&', 'sudo', 'chvt', '1'], stderr=subprocess.DEVNULL)
         print(f"{Color_schema.Colors.GREEN}GUI Service - Deactivated{Color_schema.Colors.RESET}")
         print("\n\n")
         print(f"{Color_schema.Colors.GREEN}All system configurations have been updated!{Color_schema.Colors.RESET}")
         print(f"{Color_schema.Colors.RED}OnBoard Computer will restart in 10 seconds!{Color_schema.Colors.RESET}") 
         time.sleep(10)
-        subprocess.run(['sudo', 'systemctl', 'isolate', 'multi-user.target', '&&', 'sudo', 'chvt', '1'], stderr=subprocess.DEVNULL)
         subprocess.run(['sudo', 'reboot'], check=True)
     except subprocess.CalledProcessError as e:
         print(f"{Color_schema.Colors.RED}Error trying to disable GUI service: {e.returncode} - {e.stderr.decode().strip()}{Color_schema.Colors.RESET}")
