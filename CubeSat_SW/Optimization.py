@@ -57,8 +57,7 @@ def disable_gui():
         print(f"{Color_schema.Colors.GREEN}All system configurations have been updated!{Color_schema.Colors.RESET}")
         print(f"{Color_schema.Colors.RED}OnBoard Computer will restart in 10 seconds!{Color_schema.Colors.RESET}") 
         time.sleep(10)
-        subprocess.run(['sudo', 'systemctl', 'stop', 'lightdm'], stderr=subprocess.DEVNULL)
-        subprocess.run(['sudo', 'systemctl', 'isolate', 'multi-user.target'], stderr=subprocess.DEVNULL)
+        subprocess.run(['sudo', 'systemctl', 'isolate', 'multi-user.target', '&&', 'sudo', 'chvt', '1'], stderr=subprocess.DEVNULL)
         subprocess.run(['sudo', 'reboot'], check=True)
     except subprocess.CalledProcessError as e:
         print(f"{Color_schema.Colors.RED}Error trying to disable GUI service: {e.returncode} - {e.stderr.decode().strip()}{Color_schema.Colors.RESET}")
