@@ -70,22 +70,17 @@ def disable_wifi():
     
 def disable_gui():
     try:
-        subprocess.check_output(['sudo', 'systemctl', 'is-active', '--quiet', 'lightdm'], stderr=subprocess.DEVNULL)
-        print(f"{Color_schema.Colors.GREEN}GUI service is already deactivated!{Color_schema.Colors.RESET}")
-    except subprocess.CalledProcessError:
-        try:
-            subprocess.check_call(['sudo', 'systemctl', 'stop', 'lightdm'], stderr=subprocess.DEVNULL)
-            print(f"{Color_schema.Colors.ORANGE}Deactivating GUI service!{Color_schema.Colors.RESET}")
-        except subprocess.CalledProcessError as e:
-            print(f"{Color_schema.Colors.RED}Error trying to disable GUI service: {e.returncode}{Color_schema.Colors.RESET}")
-    
+        subprocess.check_call(['sudo', 'systemctl', 'stop', 'lightdm'], stderr=subprocess.DEVNULL)
+        print(f"{Color_schema.Colors.GREEN}GUI Service - Deactivated{Color_schema.Colors.RESET}")
+    except subprocess.CalledProcessError as e:
+        print(f"{Color_schema.Colors.RED}Error trying to disable GUI service: {e.returncode} - {e.stderr.decode().strip()}{Color_schema.Colors.RESET}")
+
 def disable_bluetooth():
     try:
         subprocess.check_call(['sudo', 'systemctl', 'disable', 'bluetooth.service'], stderr=subprocess.DEVNULL)
         print(f"{Color_schema.Colors.GREEN}Bluetooth Service - Deactivated{Color_schema.Colors.RESET}")
     except subprocess.CalledProcessError as e:
         print(f"{Color_schema.Colors.RED}Error trying to disable Bluetooth service: {e.returncode} - {e.stderr.decode().strip()}{Color_schema.Colors.RESET}")
-
 
 def disable_updates():
     try:
