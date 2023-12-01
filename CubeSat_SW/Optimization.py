@@ -11,8 +11,8 @@ def dependencies():
 
     os.system('clear')
     try:
-        subprocess.run(['sudo', 'apt-get', 'update'], check=True, stderr=subprocess.DEVNULL)
-        subprocess.run(['sudo', 'apt-get', 'install', '-y'] + system_dependencies, check=True, stderr=subprocess.DEVNULL)
+        subprocess.run(['sudo', 'apt-get', 'update'], check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+        subprocess.run(['sudo', 'apt-get', 'install', '-y'] + system_dependencies, check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
         print(f"{Color_schema.Colors.GREEN}System dependencies - Installed{Color_schema.Colors.RESET}")
         print("\n")
     except subprocess.CalledProcessError as e:
@@ -21,12 +21,12 @@ def dependencies():
 
 
     try:
-        subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_i2c', '0'], check=True)
+        subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_i2c', '0'], check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
         print(f"{Color_schema.Colors.GREEN}I2C - Activated{Color_schema.Colors.RESET}")
     except subprocess.CalledProcessError as e:
         print(f"{Color_schema.Colors.RED}Error activating I2C: {e.returncode}{Color_schema.Colors.RESET}")
     try:
-        subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_spi', '0'], check=True)
+        subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_spi', '0'], check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
         print(f"{Color_schema.Colors.GREEN}SPI - Activated{Color_schema.Colors.RESET}")
         print("\n")
     except subprocess.CalledProcessError as e:
@@ -45,10 +45,10 @@ def dependencies():
 
 def disable_wifi():
     try:
-        subprocess.check_call(['sudo', 'ip', 'link', 'set', 'wlan0', 'down'], stderr=subprocess.DEVNULL)
+        subprocess.check_call(['sudo', 'ip', 'link', 'set', 'wlan0', 'down'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
         print(f"{Color_schema.Colors.GREEN}Wi-Fi Service - Deactivated!{Color_schema.Colors.RESET}")
     except subprocess.CalledProcessError as e:
-        print(f"{Color_schema.Colors.RED}Error trying to disable Wi-Fi service: {e.returncode} - {e.stderr.decode().strip()}{Color_schema.Colors.RESET}")
+        print(f"{Color_schema.Colors.RED}Error trying to disable Wi-Fi service: {e.returncode}{Color_schema.Colors.RESET}")
     
 def disable_gui():
     try:
