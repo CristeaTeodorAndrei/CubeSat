@@ -56,8 +56,7 @@ def disable_gui():
         print("\n\n")
         print(f"{Color_schema.Colors.GREEN}All system configurations have been updated!{Color_schema.Colors.RESET}")
         print(f"{Color_schema.Colors.RED}OnBoard Computer will restart in 10 seconds!{Color_schema.Colors.RESET}") 
-        time.sleep(10)
-        subprocess.run(['sudo', 'reboot'], check=True)
+        
     except subprocess.CalledProcessError as e:
         print(f"{Color_schema.Colors.RED}Error trying to disable GUI service: {e.returncode} - {e.stderr.decode().strip()}{Color_schema.Colors.RESET}")
 
@@ -84,3 +83,8 @@ def optimization_start():
     disable_updates()
     disable_bluetooth()
     disable_gui()
+    if dependencies() and disable_wifi() and disable_updates() and disable_bluetooth() and disable_gui():
+        time.sleep(10)
+        subprocess.run(['sudo', 'reboot'], check=True)
+    else:
+        print(f"{Color_schema.Colors.RED}Error trying to reboot OnBoard Computer!{Color_schema.Colors.RESET}")
