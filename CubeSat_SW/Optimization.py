@@ -81,14 +81,11 @@ def disable_gui():
     
 def disable_bluetooth():
     try:
-        subprocess.check_output(['sudo', 'systemctl', 'is-enabled', '--quiet', 'bluetooth.service'], stderr=subprocess.DEVNULL)
-        print(f"{Color_schema.Colors.GREEN}Bluetooth service is already deactivated!{Color_schema.Colors.RESET}")
-    except subprocess.CalledProcessError:
-        try:
-            subprocess.check_call(['sudo', 'systemctl', 'disable', 'bluetooth.service'], stderr=subprocess.DEVNULL)
-            print(f"{Color_schema.Colors.ORANGE}Deactivating Bluetooth service!{Color_schema.Colors.RESET}")
-        except subprocess.CalledProcessError as e:
-            print(f"{Color_schema.Colors.RED}Error trying to deactivate Bluetooth service: {e.returncode}{Color_schema.Colors.RESET}")
+        subprocess.check_call(['sudo', 'systemctl', 'disable', 'bluetooth.service'], stderr=subprocess.DEVNULL)
+        print(f"{Color_schema.Colors.GREEN}Bluetooth Service - Deactivated{Color_schema.Colors.RESET}")
+    except subprocess.CalledProcessError as e:
+        print(f"{Color_schema.Colors.RED}Error trying to disable Bluetooth service: {e.returncode} - {e.stderr.decode().strip()}{Color_schema.Colors.RESET}")
+
 
 def disable_updates():
     try:
@@ -96,7 +93,7 @@ def disable_updates():
         subprocess.run(["sudo", "systemctl", "disable", "apt-daily-upgrade.timer"], stderr=subprocess.DEVNULL)
         subprocess.run(["sudo", "systemctl", "stop", "apt-daily.service"], stderr=subprocess.DEVNULL)
         subprocess.run(["sudo", "systemctl", "stop", "apt-daily-upgrade.service"], stderr=subprocess.DEVNULL)
-        print(f"{Color_schema.Colors.ORANGE}Automatic updates have been successfully disabled!{Color_schema.Colors.RESET}")
+        print(f"{Color_schema.Colors.GREEN}Automatic Updates Service - Deactivated{Color_schema.Colors.RESET}")
     except subprocess.CalledProcessError as e:
         print(f"{Color_schema.Colors.RED}Error while disabling automatic updates: {e.returncode} - {e.stderr.decode().strip()}{Color_schema.Colors.RESET}")
 
@@ -107,4 +104,4 @@ def optimization_start():
     disable_bluetooth()
     disable_gui()
 
-    ## verifica daca disable updates crapa
+    ## verifica daca bluetoot crapa     (updates merge)
