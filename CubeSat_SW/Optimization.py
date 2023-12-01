@@ -1,57 +1,43 @@
 import subprocess
 import time
+import os
 import Color_schema
 
 
 def dependencies():
+    
     python_packages = ["smbus2", "adafruit-circuitpython-ina219"]
+    system_dependencies = ["python3", "python3-pip", "i2c-tools"]
 
+    os.system('clear')
     try:
-        subprocess.run(['python3', '--version'], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        subprocess.run(['pip3', '--version'], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        subprocess.run(['sudo', 'apt-get', 'install', '-y', 'i2c-tools'], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        print(f"{Color_schema.Colors.GREEN}System dependencies are already installed!{Color_schema.Colors.RESET}")
+        subprocess.run(['sudo', 'apt-get', 'update'], check=True, stderr=subprocess.DEVNULL)
+        subprocess.run(['sudo', 'apt-get', 'install', '-y'] + system_dependencies, check=True, stderr=subprocess.DEVNULL)
+        print(f"{Color_schema.Colors.GREEN}System dependencies - Installed{Color_schema.Colors.RESET}")
+        print("\n")
+    except subprocess.CalledProcessError as e:
+        print(f"{Color_schema.Colors.RED}Error installing system dependencies: {e.returncode}{Color_schema.Colors.RESET}")
         print("\n")
 
-    except subprocess.CalledProcessError:
-        try:
-            subprocess.run(['sudo', 'apt-get', 'update'], check=True, stderr=subprocess.DEVNULL)
-            subprocess.run(['sudo', 'apt-get', 'install', '-y', 'python3', 'python3-pip', 'i2c-tools'], check=True, stderr=subprocess.DEVNULL)
-            print(f"{Color_schema.Colors.GREEN}System dependencies installed successfully!{Color_schema.Colors.RESET}")
-            print("\n")
-        except subprocess.CalledProcessError as e:
-            print(f"{Color_schema.Colors.RED}Error installing system dependencies: {e.returncode}{Color_schema.Colors.RESET}")
-            print("\n")
-            
 
     try:
-        subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_i2c', '0'], check=True, stderr=subprocess.DEVNULL)
-        print(f"{Color_schema.Colors.GREEN}I2C is already activated!{Color_schema.Colors.RESET}")
-    except subprocess.CalledProcessError:
-        try:
-            subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_i2c', '0'], check=True)
-            print(f"{Color_schema.Colors.GREEN}I2C activated successfully!{Color_schema.Colors.RESET}")
-        except subprocess.CalledProcessError as e:
-            print(f"{Color_schema.Colors.RED}Error activating I2C: {e.returncode}{Color_schema.Colors.RESET}")
-
+        subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_i2c', '0'], check=True)
+        print(f"{Color_schema.Colors.GREEN}I2C - Activated{Color_schema.Colors.RESET}")
+    except subprocess.CalledProcessError as e:
+        print(f"{Color_schema.Colors.RED}Error activating I2C: {e.returncode}{Color_schema.Colors.RESET}")
     try:
-        subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_spi', '0'], check=True, stderr=subprocess.DEVNULL)
-        print(f"{Color_schema.Colors.GREEN}SPI is already activated!{Color_schema.Colors.RESET}")
+        subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_spi', '0'], check=True)
+        print(f"{Color_schema.Colors.GREEN}SPI - Activated{Color_schema.Colors.RESET}")
         print("\n")
-    except subprocess.CalledProcessError:
-        try:
-            subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_spi', '0'], check=True, stderr=subprocess.DEVNULL)
-            print(f"{Color_schema.Colors.GREEN}SPI activated successfully!{Color_schema.Colors.RESET}")
-            print("\n")
-        except subprocess.CalledProcessError as e:
-            print(f"{Color_schema.Colors.RED}Error activating SPI: {e.returncode}{Color_schema.Colors.RESET}")
-            print("\n")
+    except subprocess.CalledProcessError as e:
+        print(f"{Color_schema.Colors.RED}Error activating SPI: {e.returncode}{Color_schema.Colors.RESET}")
+        print("\n")
 
 
     for package in python_packages:
         try:
             subprocess.run(["pip3", "install", "--upgrade", "-q", package], check=True, stderr=subprocess.DEVNULL)
-            print(f"{Color_schema.Colors.GREEN}Package {package} installed successfully!{Color_schema.Colors.RESET}")
+            print(f"{Color_schema.Colors.GREEN}Package {package} - Installed{Color_schema.Colors.RESET}")
         except subprocess.CalledProcessError as e:
             print(f"{Color_schema.Colors.RED}Error installing package {package}: {e.returncode}{Color_schema.Colors.RESET}")
     
@@ -59,19 +45,20 @@ def dependencies():
 
 def disable_wifi():
     try:
-        subprocess.check_output(['sudo', 'ifconfig', 'wlan0', 'down'], stderr=subprocess.DEVNULL)
-        print(f"{Color_schema.Colors.GREEN}Wi-Fi service is already deactivated!{Color_schema.Colors.RESET}")
-    except subprocess.CalledProcessError:
-        try:
-            subprocess.check_call(['sudo', 'ifconfig', 'wlan0', 'down'], stderr=subprocess.DEVNULL)
-            print(f"{Color_schema.Color_schema.ORANGE}Deactivating Wi-Fi service!{Color_schema.Colors.RESET}")
-        except subprocess.CalledProcessError as e:
-            print(f"{Color_schema.Colors.RED}Error trying to disable Wi-Fi service: {e.returncode} {Color_schema.Colors.RESET}")
+        subprocess.check_call(['sudo', 'ip', 'link', 'set', 'wlan0', 'down'], stderr=subprocess.DEVNULL)
+        print(f"{Color_schema.Colors.GREEN}Wi-Fi Service - Deactivated!{Color_schema.Colors.RESET}")
+    except subprocess.CalledProcessError as e:
+        print(f"{Color_schema.Colors.RED}Error trying to disable Wi-Fi service: {e.returncode} - {e.stderr.decode().strip()}{Color_schema.Colors.RESET}")
     
 def disable_gui():
     try:
         subprocess.check_call(['sudo', 'systemctl', 'stop', 'lightdm'], stderr=subprocess.DEVNULL)
         print(f"{Color_schema.Colors.GREEN}GUI Service - Deactivated{Color_schema.Colors.RESET}")
+        print("\n\n")
+        print(f"{Color_schema.Colors.GREEN}All system configurations have been updated!{Color_schema.Colors.RESET}")
+        print(f"{Color_schema.Colors.RED}OnBoard Computer will restart in 10 seconds!{Color_schema.Colors.RESET}") 
+        time.sleep(10)
+        subprocess.run(['sudo', 'reboot'], check=True)
     except subprocess.CalledProcessError as e:
         print(f"{Color_schema.Colors.RED}Error trying to disable GUI service: {e.returncode} - {e.stderr.decode().strip()}{Color_schema.Colors.RESET}")
 
@@ -98,5 +85,3 @@ def optimization_start():
     disable_updates()
     disable_bluetooth()
     disable_gui()
-
-    ## verifica daca bluetoot crapa     (updates merge)
