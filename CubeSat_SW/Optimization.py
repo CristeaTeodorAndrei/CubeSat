@@ -47,7 +47,7 @@ def PACKAGES():
         print(f"{Color_schema.Colors.GREEN}Packages - Installed{Color_schema.Colors.RESET}\n")
         return True
     except subprocess.CalledProcessError as e:
-        print(f"{Color_schema.Colors.RED}Error installing package {package}: {e.returncode}{Color_schema.Colors.RESET}\n")
+        print(f"{Color_schema.Colors.RED}Error installing packages: {e.returncode}{Color_schema.Colors.RESET}\n")
         return False
 
 @handle_errors(print_messages=False)
@@ -96,9 +96,9 @@ def DISABLE_UPDATES():
 def optimization_start():
     if all([
         DEPENDECIES(),
-        #COMM_PROTOCOLS(),
+        COMM_PROTOCOLS(),
         PACKAGES(),
-        #DISABLE_WIFI(),
+        DISABLE_WIFI(),
         DISABLE_UPDATES(),
         DISABLE_BLUETOOTH(),
         DISABLE_GUI(),
