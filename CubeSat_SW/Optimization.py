@@ -21,8 +21,8 @@ def DEPENDECIES():
 
     os.system('clear')
     try:
-        subprocess.run(['sudo', 'apt-get', 'update'], check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
-        subprocess.run(['sudo', 'apt-get', 'install', '-y'] + system_dependencies, check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+        subprocess.run(['sudo', 'apt-get', 'update'], check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL )
+        subprocess.run(['sudo', 'apt-get', 'install', '-y'] + system_dependencies, check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL )
         print(f"{Color_schema.Colors.GREEN}System Dependencies - Installed{Color_schema.Colors.RESET}\n")
         return True
     except subprocess.CalledProcessError as e:
@@ -35,15 +35,15 @@ def COMM_PROTOCOLS():
         subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_i2c', '0'], check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
         subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_spi', '0'], check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
         print(f"{Color_schema.Colors.GREEN}COMMUNICATION PROTOCOLS - Enabled{Color_schema.Colors.RESET}\n")
+        return True
     except subprocess.CalledProcessError as e:
         print(f"{Color_schema.Colors.RED}Error activating Communication Protocols: {e.returncode}{Color_schema.Colors.RESET}\n")
-        #return False
+        return False
     
 @handle_errors(print_messages=False)
 def PACKAGES():
     try:
-        subprocess.run(["pip3", "install", "--upgrade", "-q", "smbus2"], check=True, stderr=subprocess.DEVNULL)
-        subprocess.run(["pip3", "install", "--upgrade", "-q", "adafruit-circuitpython-ina219"], check=True, stderr=subprocess.DEVNULL)
+        subprocess.run(["sudo", "apt", "install", "-y", "python3-smbus2"], check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
         print(f"{Color_schema.Colors.GREEN}Packages - Installed{Color_schema.Colors.RESET}\n")
         return True
     except subprocess.CalledProcessError as e:
