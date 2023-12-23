@@ -62,9 +62,11 @@ def DISABLE_WIFI():
 
 @handle_errors(print_messages=False)
 def DISABLE_GUI():
+        subprocess.run(['sudo', 'systemctl', 'disable', 'lightdm'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
         subprocess.run(['sudo', 'chvt', '1'], check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
-        subprocess.run(['sudo', 'systemctl', 'stop', 'lightdm'])
-        subprocess.run(['sudo', 'systemctl', 'disable', 'lightdm'])
+        subprocess.run(['sudo', 'systemctl', 'stop', 'lightdm'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+        
+        
 
 @handle_errors(print_messages=False)
 def DISABLE_BLUETOOTH():
@@ -91,12 +93,12 @@ def DISABLE_UPDATES():
         
 def optimization_start():
     if all([
-        DEPENDECIES(),
-        COMM_PROTOCOLS(),
-        PACKAGES(),
-        DISABLE_WIFI(),
-        DISABLE_UPDATES(),
-        DISABLE_BLUETOOTH(),
+        #DEPENDECIES(),
+        #COMM_PROTOCOLS(),
+        #PACKAGES(),
+        #DISABLE_WIFI(),
+        #DISABLE_UPDATES(),
+        #DISABLE_BLUETOOTH(),
 
     ]):
         print(f"{Color_schema.Colors.GREEN}All system configuration have been applied!{Color_schema.Colors.RESET}")
