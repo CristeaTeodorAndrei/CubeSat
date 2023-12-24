@@ -21,8 +21,8 @@ def DEPENDECIES():
 
     os.system('clear')
     try:
-        subprocess.run(['sudo', 'apt-get', 'update'], check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
-        subprocess.run(['sudo', 'apt-get', 'install', '-y'] + system_dependencies, check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+        subprocess.run(['sudo', 'apt-get', 'update'], check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL )
+        subprocess.run(['sudo', 'apt-get', 'install', '-y'] + system_dependencies, check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL )
         print(f"{Color_schema.Colors.GREEN}System Dependencies - Installed{Color_schema.Colors.RESET}\n")
         return True
     except subprocess.CalledProcessError as e:
@@ -35,19 +35,20 @@ def COMM_PROTOCOLS():
         subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_i2c', '0'], check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
         subprocess.run(['sudo', 'raspi-config', 'nonint', 'do_spi', '0'], check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
         print(f"{Color_schema.Colors.GREEN}COMMUNICATION PROTOCOLS - Enabled{Color_schema.Colors.RESET}\n")
+        return True
     except subprocess.CalledProcessError as e:
         print(f"{Color_schema.Colors.RED}Error activating Communication Protocols: {e.returncode}{Color_schema.Colors.RESET}\n")
-        #return False
+        return False
     
 @handle_errors(print_messages=False)
 def PACKAGES():
     try:
-        subprocess.run(["pip3", "install", "--upgrade", "-q", "smbus2"], check=True, stderr=subprocess.DEVNULL)
-        subprocess.run(["pip3", "install", "--upgrade", "-q", "adafruit-circuitpython-ina219"], check=True, stderr=subprocess.DEVNULL)
+        subprocess.run(["sudo", "apt", "install", "-y", "python3-smbus2"], check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+        subprocess.run(["sudo", "apt", "install", "-y", "python3-psutil"], check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
         print(f"{Color_schema.Colors.GREEN}Packages - Installed{Color_schema.Colors.RESET}\n")
         return True
     except subprocess.CalledProcessError as e:
-        print(f"{Color_schema.Colors.RED}Error installing package {package}: {e.returncode}{Color_schema.Colors.RESET}\n")
+        print(f"{Color_schema.Colors.RED}Error installing packages: {e.returncode}{Color_schema.Colors.RESET}\n")
         return False
 
 @handle_errors(print_messages=False)
@@ -62,13 +63,11 @@ def DISABLE_WIFI():
 
 @handle_errors(print_messages=False)
 def DISABLE_GUI():
-    try:
-        subprocess.run(['sudo', 'systemctl', 'isolate', 'multi-user.target', '&&', 'sudo', 'chvt', '1'], stderr=subprocess.DEVNULL)
-        print(f"{Color_schema.Colors.GREEN}GUI Service - Deactivated{Color_schema.Colors.RESET}\n")
-        return True
-    except subprocess.CalledProcessError as e:
-        print(f"{Color_schema.Colors.RED}Error trying to disable GUI service: {e.returncode} - {e.stderr.decode().strip()}{Color_schema.Colors.RESET}\n")
-        return False
+        subprocess.run(['sudo', 'systemctl', 'disable', 'lightdm'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+        subprocess.run(['sudo', 'chvt', '1'], check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+        subprocess.run(['sudo', 'systemctl', 'stop', 'lightdm'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+        
+        
 
 @handle_errors(print_messages=False)
 def DISABLE_BLUETOOTH():
@@ -96,17 +95,16 @@ def DISABLE_UPDATES():
 def optimization_start():
     if all([
         DEPENDECIES(),
-        #COMM_PROTOCOLS(),
+        COMM_PROTOCOLS(),
         PACKAGES(),
-        #DISABLE_WIFI(),
+        DISABLE_WIFI(),
         DISABLE_UPDATES(),
         DISABLE_BLUETOOTH(),
-        DISABLE_GUI(),
+
     ]):
         print(f"{Color_schema.Colors.GREEN}All system configuration have been applied!{Color_schema.Colors.RESET}")
-        print(f"{Color_schema.Colors.RED}OnBoard Computer will restart in 10 seconds!{Color_schema.Colors.RESET}")
-        time.sleep(10)
-        subprocess.run(['sudo', 'reboot'], check=True)
+        print(f"{Color_schema.Colors.ORANGE}Switching to terminal mode in 5 seconds!{Color_schema.Colors.RESET}")
+        time.sleep(5)
+        DISABLE_GUI()
     else:
-        print(f"{Color_schema.Colors.RED}Error trying to reboot OnBoard Computer!{Color_schema.Colors.RESET}")
-        
+        print(f"{Color_schema.Colors.RED}Error trying to switch to terminal mode!{Color_schema.Colors.RESET}")
