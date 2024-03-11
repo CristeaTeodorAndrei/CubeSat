@@ -34,9 +34,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 0.65,
-          "height": 0.65,
-          "width": 0.65
+          "drill": 0.762,
+          "height": 1.524,
+          "width": 1.524
         },
         "silk_line_width": 0.15,
         "silk_text_italic": false,
@@ -48,13 +48,7 @@
           "min_clearance": 0.19999999999999998
         }
       },
-      "diff_pair_dimensions": [
-        {
-          "gap": 0.0,
-          "via_gap": 0.0,
-          "width": 0.0
-        }
-      ],
+      "diff_pair_dimensions": [],
       "drc_exclusions": [],
       "meta": {
         "version": 2
@@ -171,17 +165,8 @@
           "td_width_to_size_filter_ratio": 0.9
         }
       ],
-      "track_widths": [
-        0.0,
-        0.5,
-        1.0
-      ],
-      "via_dimensions": [
-        {
-          "diameter": 0.0,
-          "drill": 0.0
-        }
-      ],
+      "track_widths": [],
+      "via_dimensions": [],
       "zones_allow_external_fillets": false
     },
     "layer_presets": [],
@@ -407,7 +392,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "Power.kicad_pro",
+    "filename": "CubeSAT_Experiments.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -484,7 +469,7 @@
   },
   "sheets": [
     [
-      "ac9d7e28-4551-4313-b6f7-b1e4cd4b0a31",
+      "71ac47fd-5cb1-4d83-adb2-6363cfe5fcfc",
       ""
     ]
   ],
