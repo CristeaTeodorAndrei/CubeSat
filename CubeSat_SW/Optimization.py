@@ -16,9 +16,7 @@ def handle_errors(print_messages=True):
 
 @handle_errors(print_messages=False)
 def DEPENDECIES():
-    
     system_dependencies = ["python3", "python3-pip", "i2c-tools"]
-
     os.system('clear')
     try:
         subprocess.run(['sudo', 'apt-get', 'update'], check=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL )
