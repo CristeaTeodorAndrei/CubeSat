@@ -5,10 +5,10 @@ import threading
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import numpy as np
-from datetime import datetime, timedelta  # Importăm timedelta aici
+from datetime import datetime, timedelta
 import serial
 
-# Importarea functiilor din fisierul Get_Data.py
+# Importing functions from Get_Data.py
 from Get_Data import cautare_port
 
 class Ping(QMainWindow):
@@ -17,7 +17,29 @@ class Ping(QMainWindow):
         self.start_time = datetime.now()  
 
         self.setWindowTitle("Charts Page")
+        self.setup_ui()
+        self.main_window_reference = main_window_reference
 
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.update_chart)
+        self.timer.start(100)  # Update the chart every 100 ms
+
+        self.serial_data_available = False
+        self.impulse_times = []
+        self.last_impulse_time = self.start_time
+
+        self.impulse_interval = timedelta(seconds=5)  # 5 seconds between each impulse
+
+        # Start serial communication
+        self.port = cautare_port()
+        if self.port:
+            self.serial_thread = threading.Thread(target=self.read_serial_data)
+            self.serial_thread.daemon = True
+            self.serial_thread.start()
+        else:
+            print("No port found.")
+
+    def setup_ui(self):
         self.exit_button = QPushButton("Exit", self)
         self.exit_button.setStyleSheet("background-color: #c0392b; color: white; border-radius: 15px; font-weight: bold;")
         self.exit_button.clicked.connect(self.close)
@@ -30,16 +52,11 @@ class Ping(QMainWindow):
         button_layout.addWidget(self.back_button)
         button_layout.addWidget(self.exit_button)
 
-        self.main_window_reference = main_window_reference
-
         main_layout = QVBoxLayout()
-
         chart_layout = QVBoxLayout()
-
         self.add_chart(chart_layout)
 
         main_layout.addLayout(chart_layout)
-
         main_layout.addLayout(button_layout)
 
         central_widget = QWidget()
@@ -55,34 +72,10 @@ class Ping(QMainWindow):
 
         self.showFullScreen()
 
-        self.timer = QTimer()
-        self.timer.timeout.connect(self.update_chart)
-        self.timer.start(500)
-
-        self.serial_data_available = False
-
-        # Lista timpilor la care apar impulsurile
-        self.impulse_times = []
-
-        # Apelarea functiei cautare_port din Get_Data.py pentru a gasi portul
-        self.port = cautare_port()
-        if self.port:
-            # Inceperea unui fir separat pentru citirea datelor de la Arduino
-            self.serial_thread = threading.Thread(target=self.citeste_date_thread)
-            self.serial_thread.daemon = True
-            self.serial_thread.start()
-        else:
-            print("Nema.")
-
     def add_chart(self, layout):
-        self.fig, self.ax = plt.subplots(figsize=(8, 6))  
-
-        self.ax.set_facecolor('#1E1E1E')  
-
+        self.fig, self.ax = plt.subplots(figsize=(8, 6))
+        self.ax.set_facecolor('#1E1E1E')
         self.fig.patch.set_facecolor('#1E1E1E')
-
-        for line in self.ax.get_lines():
-            line.set_color('white')
 
         self.ax.tick_params(axis='x', colors='white')
         self.ax.tick_params(axis='y', colors='white')
@@ -92,43 +85,22 @@ class Ping(QMainWindow):
         self.ax.spines['top'].set_color('white')
         self.ax.spines['right'].set_color('white')
 
-        elapsed_time = (datetime.now() - self.start_time).total_seconds()
-        self.time = np.arange(0, elapsed_time + 1, 0.1)  
-
-        self.signal = np.zeros_like(self.time)  
-
-        self.ax.plot(self.time, self.signal, color='green')  
-
-        self.ax.set_ylim(0, 2)
-
-        self.ax.set_title("Ping Test", color='white', fontsize=30, pad=20, fontweight='bold')
-
-        self.ax.set_xlabel("Time (s)", color='white', fontsize=16, fontweight='bold')
-
-        self.ax.set_ylabel("Value (num)", color='white', fontsize=16, fontweight='bold')
-
-        self.ax.grid(color='black', linewidth=0.5)
-
         self.canvas = FigureCanvas(self.fig)
-
-        self.canvas.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        self.canvas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
         layout.addWidget(self.canvas)
 
     def update_chart(self):
         current_time = datetime.now()
         elapsed_time = (current_time - self.start_time).total_seconds()
-        self.time = np.arange(0, elapsed_time + 1, 0.1)
+        self.time = np.arange(0, elapsed_time + 0.1, 0.1)
 
-        # Reset the signal to zeros at each update
-        self.signal = np.zeros_like(self.time)  
+        self.signal = np.zeros_like(self.time)
 
-        # Calculate the time since the last impulse
-        time_since_last_impulse = (current_time - self.impulse_times[-1] if self.impulse_times else timedelta(seconds=2)).total_seconds()
-
-        if self.serial_data_available and time_since_last_impulse >= 2:  # Send impulse every 2 seconds
-            # Add the current time to the list of impulse times
+        # Check if the time since the last impulse is equal to or exceeds 5 seconds
+        if self.serial_data_available and (current_time - self.last_impulse_time >= self.impulse_interval):
             self.impulse_times.append(current_time)
+            self.last_impulse_time = current_time
 
         # Update the signal array based on the impulse times
         for impulse_time in self.impulse_times:
@@ -137,8 +109,8 @@ class Ping(QMainWindow):
                 self.signal[index] = 1
 
         self.ax.clear()
-        self.ax.plot(self.time, self.signal, color='green')
-        self.ax.set_ylim(0, 2)
+        self.ax.plot(self.time, self.signal, color='green', linewidth=3.0)  # Thicker green line
+        self.ax.set_ylim(-0.1, 1.1)
         self.ax.set_title("Ping Test", color='white', fontsize=30, pad=20, fontweight='bold')
         self.ax.set_xlabel("Time (s)", color='white', fontsize=16, fontweight='bold')
         self.ax.set_ylabel("Value (num)", color='white', fontsize=16, fontweight='bold')
@@ -150,17 +122,13 @@ class Ping(QMainWindow):
         self.main_window_reference.show()
         self.hide()
 
-    def citeste_date_thread(self):
-        with serial.Serial(self.port, 9600, timeout=1) as ser:
+    def read_serial_data(self):
+        with serial.Serial(self.port, 115200, timeout=1) as ser:
             while True:
                 line = ser.readline().decode().strip()
-                if line:  # Verifica daca exista date primite
-                    self.serial_data_available = True
-                else:
-                    self.serial_data_available = False
+                self.serial_data_available = bool(line)
 
 if __name__ == "__main__":
     app = QApplication([])
     window = Ping(None)
-
     app.exec_()
