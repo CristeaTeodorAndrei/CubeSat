@@ -1,12 +1,13 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QDateTimeEdit
-from PyQt5.QtCore import Qt, QTimer, QDateTime
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel
+from PyQt5.QtCore import Qt, QTimer
 import datetime  # Importă modulul datetime
-
 
 from Ping import Ping
 from System_Monitor import System_Monitor
 from Experiments import Experiments
+from Raw import Raw
+from Render import Render
 from About import About
 
 class CubeSATDashboard(QMainWindow):
@@ -44,10 +45,20 @@ class CubeSATDashboard(QMainWindow):
         button3.setStyleSheet("background-color: #3498db; color: white; border-radius: 10px; font-weight: bold;")
         button3.clicked.connect(self.show_experiments) 
 
-        button4 = QPushButton("About", self)
+        button4 = QPushButton("Raw", self)
         button4.setGeometry(1920//2 - 100, 700, 200, 50)
-        button4.setStyleSheet("background-color: #674732; color: white; border-radius: 10px; font-weight: bold;")
-        button4.clicked.connect(self.show_about)
+        button4.setStyleSheet("background-color: #3498db; color: white; border-radius: 10px; font-weight: bold;")
+        button4.clicked.connect(self.show_raw) 
+
+        button5 = QPushButton("3D Render", self)
+        button5.setGeometry(1920//2 - 100, 800, 200, 50)
+        button5.setStyleSheet("background-color: #3498db; color: white; border-radius: 10px; font-weight: bold;")
+        button5.clicked.connect(self.show_render) 
+
+        button6 = QPushButton("About", self)
+        button6.setGeometry(1920//2 - 100, 900, 200, 50)
+        button6.setStyleSheet("background-color: #674732; color: white; border-radius: 10px; font-weight: bold;")
+        button6.clicked.connect(self.show_about)
 
         # Creează butonul de ieșire
         exit_button = QPushButton("Exit", self)
@@ -85,23 +96,34 @@ class CubeSATDashboard(QMainWindow):
         self.system_monitor_window.show()
     
     def show_ping(self):  
-        # Ascunde fereastra curentă și afișează fereastra System_Monitor
+        # Ascunde fereastra curentă și afișează fereastra Ping
         self.hide()
         self.system_monitor_window = Ping(self)
         self.system_monitor_window.show()
 
     def show_experiments(self):  
-        # Ascunde fereastra curentă și afișează fereastra System_Monitor
+        # Ascunde fereastra curentă și afișează fereastra Experiments
         self.hide()
         self.system_monitor_window = Experiments(self)
         self.system_monitor_window.show()
 
+    def show_raw(self):  
+        # Ascunde fereastra curentă și afișează fereastra Raw
+        self.hide()
+        self.raw_window = Raw(self)
+        self.raw_window.show()
+    
+    def show_render(self):  
+        # Ascunde fereastra curentă și afișează fereastra Raw
+        self.hide()
+        self.render_window = Render(self)
+        self.render_window.show()
+
     def show_about(self):  
-        # Ascunde fereastra curentă și afișează fereastra System_Monitor
+        # Ascunde fereastra curentă și afișează fereastra About
         self.hide()
         self.system_monitor_window = About(self)
         self.system_monitor_window.show()
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
