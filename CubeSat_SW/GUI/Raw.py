@@ -1,9 +1,10 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout, QWidget, QHBoxLayout, QTextEdit, QSizePolicy
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout, QWidget, QHBoxLayout, QTextEdit
 from PyQt5.QtCore import Qt, QTimer
 import threading
 import serial.tools.list_ports
 import csv
+import time
 
 # Find the port to which the Arduino is connected
 def cautare_port():
@@ -14,38 +15,52 @@ def cautare_port():
     return None
 
 # Function to read data from Arduino
-def citeste_date(port, data_list):
+def citeste_date(data_list, stop_event):
     buffer = ""
-    with serial.Serial(port, 115200, timeout=1) as ser:
-        while True:
-            try:
-                buffer += ser.read(ser.in_waiting or 1024).decode('utf-8')
-                if '\n' in buffer:
-                    lines = buffer.split('\n')
-                    for line in lines[:-1]:
-                        if line.strip():
-                            try:
-                                numbers = [float(x) for x in line.split()]
-                                data_list.append(numbers)
-                                print(f"Data received: {numbers}")  # Debugging: Print received data
-                            except ValueError as e:
-                                print(f"Error converting data to float: {e}")
-                    buffer = lines[-1]
-            except Exception as e:
-                print(f"Error reading data: {e}")
+    port = None
+
+    while not stop_event.is_set():
+        try:
+            if port is None or not port.is_open:
+                port_device = cautare_port()
+                if port_device:
+                    port = serial.Serial(port_device, 115200, timeout=1)
+                    print("Connected to port:", port_device)
+                    buffer = ""  # Clear the buffer on reconnection
+                else:
+                    print("No port found, retrying in 5 seconds...")
+                    time.sleep(5)
+                    continue
+                    buffer = ""  # Clear the buffer on reconnection
+
+            buffer += port.read(port.in_waiting or 1024).decode('utf-8')
+            if '\n' in buffer:
+                lines = buffer.split('\n')
+                for line in lines[:-1]:
+                    if line.strip():
+                        numbers = [float(x) for x in line.split()]
+                        data_list.append(numbers)
+                buffer = lines[-1]
+        except (serial.SerialException, OSError) as e:
+            print("Lost connection, retrying in 5 seconds...")
+            if port and port.is_open:
+                port.close()
+            port = None
+        except Exception as e:
+            print("Unexpected error:", str(e))
+            if port and port.is_open:
+                port.close()
+            port = None
 
 class Raw(QMainWindow):
     def __init__(self, main_window_reference):
         super().__init__()
         self.data_list = []
         self.saving_data = False
+        self.stop_event = threading.Event()
 
         # Start data reading thread
-        port = cautare_port()
-        if port:
-            self.thread = threading.Thread(target=citeste_date, args=(port, self.data_list))
-            self.thread.daemon = True
-            self.thread.start()
+        self.start_data_thread()
 
         # Setează titlul ferestrei
         self.setWindowTitle("Terminal Emulator")
@@ -53,7 +68,7 @@ class Raw(QMainWindow):
         # Creează butoanele de ieșire și revenire
         self.exit_button = QPushButton("Exit", self)
         self.exit_button.setStyleSheet("background-color: #c0392b; color: white; border-radius: 15px; font-weight: bold;")
-        self.exit_button.clicked.connect(self.close)
+        self.exit_button.clicked.connect(self.close_application)
 
         self.back_button = QPushButton("Main Page", self)
         self.back_button.setStyleSheet("background-color: #c0392b; color: white; border-radius: 15px; font-weight: bold;")
@@ -108,6 +123,11 @@ class Raw(QMainWindow):
         self.timer.timeout.connect(self.update_terminal_output)
         self.timer.start(1000)  # Update every second
 
+    def start_data_thread(self):
+        self.thread = threading.Thread(target=citeste_date, args=(self.data_list, self.stop_event))
+        self.thread.daemon = True
+        self.thread.start()
+
     def toggle_save_data(self):
         if self.saving_data:
             self.saving_data = False
@@ -135,16 +155,21 @@ class Raw(QMainWindow):
         # Clear terminal output
         self.terminal_output.clear()
 
-        # Display the data list in the terminal output
-        for data in self.data_list:
-            # Join the list of numbers into a single string separated by commas and enclosed in square brackets
-            data_str = '[{}]'.format(', '.join(map(str, data)))
+        # Display the data list in the terminal output with index
+        for index, data in enumerate(self.data_list, start=1):
+            data_str = '{}. [{}]'.format(index, ', '.join(map(str, data)))
             self.terminal_output.append(data_str)
+            self.terminal_output.append("\n")  # Ensure a new line after each array
 
     def return_to_main_page(self):
         # Afișează fereastra principală și ascunde fereastra curentă
         self.main_window_reference.show()
         self.hide()
+
+    def close_application(self):
+        self.stop_event.set()
+        self.thread.join()
+        self.close()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
