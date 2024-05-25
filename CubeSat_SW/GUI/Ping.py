@@ -1,3 +1,4 @@
+import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout, QWidget, QHBoxLayout, QSizePolicy
 from PyQt5.QtCore import Qt, QTimer
 import serial.tools.list_ports
@@ -6,10 +7,19 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import numpy as np
 from datetime import datetime, timedelta
-import serial
+import logging
+import time
 
-# Importing functions from Get_Data.py
-from Get_Data import cautare_port
+# Configure logging
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+
+# Function to find the port to which the Arduino is connected
+def cautare_port():
+    ports = list(serial.tools.list_ports.comports())
+    for port in ports:
+        if "CH340" in port.description:
+            return port.device
+    return None
 
 class Ping(QMainWindow):
     def __init__(self, main_window_reference):
@@ -31,13 +41,9 @@ class Ping(QMainWindow):
         self.impulse_interval = timedelta(seconds=5)  # 5 seconds between each impulse
 
         # Start serial communication
-        self.port = cautare_port()
-        if self.port:
-            self.serial_thread = threading.Thread(target=self.read_serial_data)
-            self.serial_thread.daemon = True
-            self.serial_thread.start()
-        else:
-            print("No port found.")
+        self.serial_thread = threading.Thread(target=self.read_serial_data)
+        self.serial_thread.daemon = True
+        self.serial_thread.start()
 
     def setup_ui(self):
         self.exit_button = QPushButton("Exit", self)
@@ -97,11 +103,6 @@ class Ping(QMainWindow):
 
         self.signal = np.zeros_like(self.time)
 
-        # Check if the time since the last impulse is equal to or exceeds 5 seconds
-        if self.serial_data_available and (current_time - self.last_impulse_time >= self.impulse_interval):
-            self.impulse_times.append(current_time)
-            self.last_impulse_time = current_time
-
         # Update the signal array based on the impulse times
         for impulse_time in self.impulse_times:
             index = int((impulse_time - self.start_time).total_seconds() * 10)
@@ -123,10 +124,29 @@ class Ping(QMainWindow):
         self.hide()
 
     def read_serial_data(self):
-        with serial.Serial(self.port, 115200, timeout=1) as ser:
-            while True:
-                line = ser.readline().decode().strip()
-                self.serial_data_available = bool(line)
+        while True:
+            port_device = cautare_port()
+            if port_device:
+                try:
+                    with serial.Serial(port_device, 115200, timeout=1) as ser:
+                        logging.info(f"Connected to port: {port_device}")
+                        while True:
+                            line = ser.readline().decode().strip()
+                            if line:
+                                self.serial_data_available = True
+                                current_time = datetime.now()
+                                if current_time - self.last_impulse_time >= self.impulse_interval:
+                                    self.impulse_times.append(current_time)
+                                    self.last_impulse_time = current_time
+                                    logging.info("Impulse detected and added.")
+                except serial.SerialException as e:
+                    logging.warning(f"Serial exception: {e}")
+                    self.serial_data_available = False
+                except Exception as e:
+                    logging.error(f"Unexpected error: {e}")
+                    self.serial_data_available = False
+            else:
+                logging.info("No port found, retrying in 5 seconds...")
 
 if __name__ == "__main__":
     app = QApplication([])
