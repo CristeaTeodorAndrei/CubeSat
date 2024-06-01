@@ -27,7 +27,6 @@ _REG_CALIBRATION = 0x05
 
 bus = smbus2.SMBus(1)
 GPIO.setmode(GPIO.BCM)
-packet_number = 0
 
 class BusVoltageRange:
     RANGE_16V = 0x00
