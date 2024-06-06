@@ -3,6 +3,7 @@ import struct
 from RF24 import RF24, RF24_PA_HIGH
 from Sampling import *
 import RPi.GPIO as GPIO
+import threading
 
 CSN_PIN = 0  
 CE_PIN = 22
@@ -24,17 +25,22 @@ radio.setPALevel(RF24_PA_HIGH)
 radio.openWritingPipe(address[radio_number])
 radio.payloadSize = 32
 
-def main():
-    radio.stopListening()
+def check_battery():
     while True:
         vector = read_sensor_data()
-        print("Sensor Data:", vector)
         BAT = vector[-1]
         if BAT < 80:
             GPIO.output(Charge, GPIO.HIGH)
         else:
             GPIO.output(Charge, GPIO.LOW)
-            
+        time.sleep(100)
+
+def main():
+    radio.stopListening()
+    while True:
+        vector = read_sensor_data()
+        print("Sensor Data:", vector)
+        
         first_part = struct.pack("<8f", *vector[:8])
         start_timer = time.monotonic_ns()
         result1 = radio.write(first_part)
@@ -55,10 +61,13 @@ def main():
             time.sleep(0.5)
             GPIO.output(LED1_PIN, GPIO.LOW)
             
-        time.sleep(0.1)  # Small delay to help with synchronization
+        time.sleep(0.5)  # Small delay to help with synchronization
 
 if __name__ == "__main__":
     try:
+        battery_thread = threading.Thread(target=check_battery)
+        battery_thread.daemon = True
+        battery_thread.start()
         main()
     except KeyboardInterrupt:
         print("Keyboard Interrupt detected. Powering down radio.")
